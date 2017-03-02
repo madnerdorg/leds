@@ -1,7 +1,7 @@
 #include <FastLED.h>
 /*
   Universal USB LED
-  https://github.com/pigetArduino/UniversalLed
+  https://github.com/madnerdorg/leds
   -----------------
   Components:
   WS2812b led (NEOPIXEL clone)
@@ -45,7 +45,7 @@ void serialCheck() {
     BlinkLeds(3);
   }
 
-  if (readString == "/info\n"){
+  if (readString == "/info"){
     Serial.println(usb_name);
   }
 }
