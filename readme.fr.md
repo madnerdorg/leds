@@ -1,10 +1,14 @@
-[English](https://github.com/madnerdorg/leds/)
+[English Version](https://github.com/madnerdorg/leds/)
 
-![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/universalLed_photo.jpg)   
-leds est un périphérique USB crée à partir d'un Arduino nano (clone) tour contrôler facilement 5 leds.     
-Démonstration : https://www.youtube.com/watch?v=hgvi46x4oaE
+![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_photo.jpg)   
+leds est un périphérique USB à base d'Arduino nano (clone) pour facilement contrôler 5 leds.
 
-Vous pouvez choisir 6 couleurs pour chaque leds. (Blanc/Rouge/Vert/Bleu/Jaune/Orange/Violet)
+# Utilisation
+* Copier **libraries/leds** dans votre carnet de croquis
+* Téléverser **leds/leds.ino**
+* Aller sur  [TODO]
+
+![colors](https://github.com/madnerdorg/leds/raw/master/doc/leds_colors.png)
 
 # Composants
 * Arduino nano CH340G: 2€
@@ -13,11 +17,9 @@ Vous pouvez choisir 6 couleurs pour chaque leds. (Blanc/Rouge/Vert/Bleu/Jaune/Or
 * Total : 9.5€ (2.75€)
 
 # Branchement
-Explication du Branchement : https://www.youtube.com/watch?v=hgvi46x4oaE
-
-N'utilisez pas plus de 5 leds sans une alimentation dédié, ou vous risquez d'endommager les leds
-Chaque leds peuvent consommer jusqu'à **60ma** à pleine puissance   
-Un Arduino peut fournir jusqu'à **500ma** (sur la broche 5v/Gnd pin)   
+N'utilisez pas plus de 5 leds sans une alimentation dédié où cela pourrait endommager vos leds
+Chaque leds peut consommer jusqu'à **60ma** lorsqu'elle sont à leur luminosité maximal.
+Un arduino peut fournir jusqu'à **500ma** (sur 5v)
 ```5 leds = 5x60ma = 300ma ```  
 Source:
 https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
@@ -26,19 +28,15 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 * +5V --> 5V
 * GND --> GND
 
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/universalLed_wiring.png)
+![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_wiring.png)
 
-# Impression 3D
-Modèle par Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D    
+# Modèle 3D
+Models fiat par Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D    
 
-# Commandes disponibles
-Vous pouvez tester ce périphérique dans le moniteur série du logiciel Arduino
-Baudrate : 115200 / No Line Ending   
-
-* leds --------> Vérifie si c'est le bon périphérique (et éteint les leds)
-* /info -------> Affiche le nom du périphérique : leds
-* X:Y -------> Où X est la led et Y la couleur)
-* 1:3 -------> (led 1 Vert)
+# Commands disponibles
+* /info -------> Donne le nom du périphérique (nom:port) (leds:42001)
+* A;B;C;D;E -------> (Où A est la couleur de la led1 etc...)
+* 0 ---> Eteins toutes les leds
 
 # Color
 * 0 : OFF
@@ -50,7 +48,13 @@ Baudrate : 115200 / No Line Ending
 * 6 : Orange
 * 7 : Violet
 
-# Licences
-Logiciel par Rémi Sarrailh (madnerd.org)   
-License: MIT
+# Licenses
 
+## leds.ino
+* Auteur: Rémi Sarrailh (madnerd.org)   
+* License: MIT
+
+## FastLed
+* Auteur principal: Daniel Garcia (fastled)
+* License: MIT
+* Lien : https://github.com/FastLED/FastLED

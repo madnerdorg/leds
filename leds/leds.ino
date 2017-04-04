@@ -22,7 +22,7 @@
 */
 
 //USB Device Type
-const String usb_name = "leds";
+const String usb_name = "leds:42001";
 
 //Leds Setup
 const int DATA_PIN = 6; //WS2812b led
@@ -39,14 +39,19 @@ String readString;
 
 //When application asked if this is the correct arduino
 void serialCheck() {
-  //If device type is sent turn off leds
-  if (readString == usb_name) {
-    Serial.print("OK");
-    BlinkLeds(3);
-  }
-
-  if (readString == "/info"){
+  if (readString == "/info") {
     Serial.println(usb_name);
+  } else {
+  for (int i = 0; i < NUM_LEDS; i++) {
+      leds_state[i] = splitString(readString, ';', i).toInt();
+      changeLed(i, leds_state[i]);
+      Serial.print(leds_state[i]);
+      if (i != (NUM_LEDS - 1)) {
+        Serial.print(";");
+      }
+
+    }
+    Serial.println();
   }
 }
 
@@ -130,27 +135,26 @@ void loop() {
   if (readString.length() > 0) {
     serialCheck();
 
-    //X:Y (We take character 1 and 3 and convert it as int)
-    int led = readString.substring(0).toInt() - 1;
-    int color = readString.substring(2).toInt();
+    //We clean the serial buffer
+    readString = "";
+  }
+}
 
-    //Serial.println(led);
-    //Serial.println(color);
+//Equivalent of explode in PHP (use for serial commands parsing)
+String splitString(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = {0, -1};
+  int maxIndex = data.length() - 1;
 
-    //If led = -1 this means the order wasn't sent correctly
-    if (led != -1) {
-      changeLed(led, color);
-      //Serial.print("OK");
-      for (int i = 0; i < NUM_LEDS; i++) {
-        Serial.print(leds_state[i]);
-        Serial.print(";");
-      }
-      Serial.println();
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
     }
   }
 
-  //We clean the serial buffer
-  readString = "";
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
 
