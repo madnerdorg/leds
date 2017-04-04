@@ -1,6 +1,6 @@
 [Version française / French version](https://github.com/madnerdorg/leds/blob/master/README.fr.MD)
 
-![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_photo.jpg)   
+![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds.jpg)   
 leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
 
 # Usage

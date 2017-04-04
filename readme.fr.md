@@ -1,6 +1,6 @@
 [English Version](https://github.com/madnerdorg/leds/)
 
-![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_photo.jpg)   
+![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds.jpg)   
 leds est un périphérique USB à base d'Arduino nano (clone) pour facilement contrôler 5 leds.
 
 # Utilisation
