@@ -1,7 +1,14 @@
-[Version française / French version](https://github.com/madnerdorg/utest/blob/master/README.fr.MD)
+[Version française / French version](https://github.com/madnerdorg/leds/blob/master/README.fr.MD)
 
-![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/universalLed_photo.jpg)   
+![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_photo.jpg)   
 leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
+
+# Usage
+* Copy **libraries/leds** into your arduino sketchbook
+* Upload **leds/leds.ino**
+* Go to [TODO]
+
+![colors](https://github.com/madnerdorg/leds/raw/master/doc/leds_colors.png)
 
 # Components
 * Arduino nano CH340G: 2€
@@ -10,8 +17,6 @@ leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
 * Total : 9.5€ (2.75€)
 
 # Wiring
-Wiring / How to make it: https://www.youtube.com/watch?v=hgvi46x4oaE
-
 Do not used more than 5 leds without a dedicated power supply or this can damage the leds   
 Each led can draw up to **60ma** at full brightness   
 An Arduino can provided up to **500ma** (on 5v/Gnd pin)   
@@ -23,20 +28,15 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 * +5V --> 5V
 * GND --> GND
 
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/universalLed_wiring.png)
+![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_wiring.jpg)
 
 # 3D printing
 Models by Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D    
-You will need to fill a hole for the led strip (see wiring instructions)
 
 # Commands available
-You can test the device in Arduino Serial Monitor   
-Baudrate : 115200 / No Line Ending   
-
-* leds --------> Check if device is correct (turn off all led)
-* /info -------> Give name of device
-* X:Y -------> (Where X is the led and Y the color)
-* 1:3 -------> (led 1 Green)
+* /info -------> Give name of device (name:port) (leds:42001)
+* A;B;C;D;E -------> (Where A is led1 color etc...)
+* 0 ---> Turn off all leds
 
 # Color
 * 0 : OFF
@@ -50,5 +50,11 @@ Baudrate : 115200 / No Line Ending
 
 # Licences
 
-Software by Rémi Sarrailh (madnerd.org)   
-Licence: MIT
+## leds.ino
+* Author: Rémi Sarrailh (madnerd.org)   
+* Licence: MIT
+
+## FastLed
+* Main author: Daniel Garcia (fastled)
+* Licence: MIT
+* Link : https://github.com/FastLED/FastLED
