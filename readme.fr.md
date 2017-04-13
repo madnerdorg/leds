@@ -17,6 +17,7 @@ leds est un périphérique USB à base d'Arduino nano (clone) pour facilement co
 * Total : 9.5€ (2.75€)
 
 # Branchement
+[![](https://i.ytimg.com/vi/qI0uImQtrG4/hqdefault.jpg?custom=true&w=336&h=188&stc=true&jpg444=true&jpgq=90&sp=67&sigh=6iUeWMWgQiv0QX4oDcuzS7znghM)](https://www.youtube.com/watch?v=qI0uImQtrG4)
 N'utilisez pas plus de 5 leds sans une alimentation dédié où cela pourrait endommager vos leds
 Chaque leds peut consommer jusqu'à **60ma** lorsqu'elle sont à leur luminosité maximal.
 Un arduino peut fournir jusqu'à **500ma** (sur 5v)
