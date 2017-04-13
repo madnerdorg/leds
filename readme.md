@@ -17,6 +17,8 @@ leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
 * Total : 9.5€ (2.75€)
 
 # Wiring
+[![](https://i.ytimg.com/vi/qI0uImQtrG4/hqdefault.jpg?custom=true&w=336&h=188&stc=true&jpg444=true&jpgq=90&sp=67&sigh=6iUeWMWgQiv0QX4oDcuzS7znghM)](https://www.youtube.com/watch?v=qI0uImQtrG4)
+
 Do not used more than 5 leds without a dedicated power supply or this can damage the leds   
 Each led can draw up to **60ma** at full brightness   
 An Arduino can provided up to **500ma** (on 5v/Gnd pin)   
