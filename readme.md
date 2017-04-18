@@ -6,7 +6,7 @@ leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
 # Usage
 * Copy **libraries/leds** into your arduino sketchbook
 * Upload **leds/leds.ino**
-* Go to [TODO]
+* Go to http://madnerd.org/interface/leds.html
 
 ![colors](https://github.com/madnerdorg/leds/raw/master/doc/leds_colors.png)
 
