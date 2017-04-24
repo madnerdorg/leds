@@ -29,12 +29,12 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 * +5V --> 5V
 * GND --> GND
 
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_wiring.png)
+![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_wiring.jpg)
 
 # Modèle 3D
-Models fiat par Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D    
+Modèles 3D fait par Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D    
 
-# Commands disponibles
+# Commandes disponibles
 * /info -------> Donne le nom du périphérique (nom:port) (leds:42001)
 * A;B;C;D;E -------> (Où A est la couleur de la led1 etc...)
 * 0 ---> Eteins toutes les leds
