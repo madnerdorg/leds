@@ -1,11 +1,11 @@
 [Version française / French version](https://github.com/madnerdorg/leds/blob/master/readme.fr.md)
 
-![Photo leds](https://github.com/madnerdorg/leds/raw/master/doc/leds.jpg)   
-leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
+![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds.jpg)   
+LEDs is an USB device based on an Arduino nano (clone) to easily control 5 LEDs.
 
 # Usage
-* Copy **libraries/leds** into your arduino sketchbook
-* Upload **leds/leds.ino**
+* Copy **libraries/LEDs** into your arduino sketchbook
+* Upload **LEDs/leds.ino**
 * Go to http://madnerd.org/interface/leds.html
 
 ![colors](https://github.com/madnerdorg/leds/raw/master/doc/leds_colors.png)
@@ -19,10 +19,10 @@ leds is an USB device based on an Arduino nano (clone) to easily control 5 leds.
 # Wiring
 [![](https://i.ytimg.com/vi/qI0uImQtrG4/hqdefault.jpg?custom=true&w=336&h=188&stc=true&jpg444=true&jpgq=90&sp=67&sigh=6iUeWMWgQiv0QX4oDcuzS7znghM)](https://www.youtube.com/watch?v=qI0uImQtrG4)
 
-Do not used more than 5 leds without a dedicated power supply or this can damage the leds   
+Do not used more than 5 LEDs without a dedicated power supply or this can damage the LEDs   
 Each led can draw up to **60ma** at full brightness   
-An Arduino can provided up to **500ma** (on 5v/Gnd pin)   
-```5 leds = 5x60ma = 300ma ```  
+Arduino can provide up to **500ma** (on 5v/Gnd pin)   
+```5 LEDs = 5x60ma = 300ma ```  
 Source:
 https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 
@@ -38,7 +38,7 @@ Models by Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D
 # Commands available
 * /info -------> Give name of device (name:port) (leds:42001)
 * A;B;C;D;E -------> (Where A is led1 color etc...)
-* 0 ---> Turn off all leds
+* 0 ---> Turn off all LEDs
 
 # Color
 * 0 : OFF
@@ -60,3 +60,4 @@ Models by Olivier Sarrailh : https://github.com/madnerdorg/leds/tree/master/3D
 * Main author: Daniel Garcia (fastled)
 * Licence: MIT
 * Link : https://github.com/FastLED/FastLED
+
