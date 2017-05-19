@@ -1,0 +1,82 @@
+- var title = "Led"
+- var device = "leds"
+- var send = device + ".send"
+
+doctype html
+head
+	title #{title}
+	style
+		include style.css
+body.background
+	- for (var i=0; i < leds; i++)
+		h1=title.toUpperCase() + " " + i
+		button.black(onclick=send+'(off('+i+'))')=t_off
+		button.white(onclick=send+'(on('+i+'))')=t_on
+		button.red(onclick=send+'(color('+i+',red))')=t_red
+		button.orange(onclick=send+'(color('+i+',orange))')=t_orange
+		button.yellow(onclick=send+'(color('+i+',yellow))')=t_yellow
+		button.green(onclick=send+'(color('+i+',green))')=t_green
+		button.aqua(onclick=device+'.send(color('+i+',aqua))')=t_aqua
+		button.blue(onclick=send+'(color('+i+',blue))')=t_blue
+		button.purple(onclick=send+'(color('+i+',purple))')=t_purple
+		button.pink(onclick=send+'(color('+i+',pink))')=t_pink
+		button(onclick=send+'(stop('+i+'))')=t_stop
+		button(onclick=send+'(blink('+i+',normal))')=t_blink
+		button(onclick=send+'(pulse('+i+'))')=t_pulse
+		button(onclick=send+'(rainbow('+i+'))')=t_rainbow
+
+	h1 Settings
+	button.black(onclick=send+'("/off")')=t_off
+	button.white(onclick=send+'("/on")')=t_on
+	button(onclick=send+'("/reset")')=t_reset
+	button(onclick=send+'("/save")')=t_save
+	button.red(onclick=send+'("/clear")')=t_clear
+	button.blue(onclick=send+"('/status')")=t_status
+	button(onclick=send+'("value;255")') Sync
+	
+	textarea#status
+
+	h1 Code
+	textarea#send
+	button.blue(onclick=send+"(settings())")=t_send
+	ul
+		li Police: 255;0;255;255;4;0;1;160;255;255;4;1;70;
+		li ON: 255;0;0;255;0;0;0;0;0;255;0;0;0;
+		li Fire: 123;32;255;41;2;0;0;32;255;129;2;0;0;
+		li Radioactive: 123;96;255;0;1;50;0;96;255;0;1;100;0;
+
+
+	
+
+script
+	include leds.js
+script.
+	//Websocket
+	#{device} = new WebSocket("ws://#{ip}:#{port}");
+	#{device}.onopen = arduino_ok;
+	#{device}.onmessage = arduino_read;
+	#{device}.onerror = error_message;
+	#{device}.onclose = error_message;
+
+	nb_settings = (#{leds} * 6) +2;
+
+	function settings(){
+		return load(document.getElementById("send").value);
+	}
+
+	function error_message(){
+		document.getElementById("status").value = "#{t_notconnected}";
+	}
+
+	function arduino_ok(){
+		document.getElementById("status").value = "#{t_connected}";
+	}
+
+	function arduino_read(event){
+		console.log(event.data);
+		document.getElementById("status").value = event.data;
+		state_of_leds = event.data.split(";");
+		state_of_leds.pop();
+	}
+
+

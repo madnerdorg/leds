@@ -1,0 +1,1 @@
+pug templates -P -o ./

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<head>
+  <title>Led</title>
+  <style>
+		.red{background-color:indianred;}
+		.orange{background-color:peachpuff;}
+		.yellow{background-color:lightyellow;}
+		.green{background-color:palegreen;}
+		.aqua{background-color:turquoise;}
+		.blue{background-color:steelblue;}
+		.purple{background-color:mediumvioletred;}
+		.pink{background-color:pink;}
+		.black{background-color:black;color:white;}
+		.white{background-color:mintcream;}
+		.background{background-color:#d5d7d7;}
+
+		h1{
+			background-color:gray;
+			color:black;
+			text-align: center;
+			font-family: "Arial";
+			opacity:0.5;
+
+		}
+
+		button{
+			width:128px;
+			height:64px;
+			border: 0px solid;
+			color: #22473b;
+			font-size: 22px;
+			background-color:gray;
+			margin-bottom:5px;
+		}
+
+		textarea{
+			width:100%;
+			height:100%;
+			text-align:center;
+			font-size: 32px;
+		}
+
+		ul{
+			font-size: 22px;
+		}
+
+  </style>
+</head>
+<body class="background">
+  <h1>Settings</h1>
+  <button class="black" onclick="leds.send(&quot;/off&quot;)"></button>
+  <button class="white" onclick="leds.send(&quot;/on&quot;)"></button>
+  <button onclick="leds.send(&quot;/reset&quot;)"></button>
+  <button onclick="leds.send(&quot;/save&quot;)"></button>
+  <button class="red" onclick="leds.send(&quot;/clear&quot;)"></button>
+  <button class="blue" onclick="leds.send('/status')"></button>
+  <button onclick="leds.send(&quot;value;255&quot;)">Sync</button>
+  <textarea id="status"></textarea>
+  <h1>Code</h1>
+  <textarea id="send"></textarea>
+  <button class="blue" onclick="leds.send(settings())"></button>
+  <ul>
+    <li>Police: 255;0;255;255;4;0;1;160;255;255;4;1;70;</li>
+    <li>ON: 255;0;0;255;0;0;0;0;0;255;0;0;0;</li>
+    <li>Fire: 123;32;255;41;2;0;0;32;255;129;2;0;0;</li>
+    <li>Radioactive: 123;96;255;0;1;50;0;96;255;0;1;100;0;</li>
+  </ul>
+</body>
+<script>
+//Rainbow hue chart
+//https://github.com/FastLED/FastLED/wiki/FastLED-HSV-Colors
+red = 0;
+orange = 32;
+yellow = 64;
+green = 96;
+aqua = 128;
+blue = 160;
+purple = 192;
+pink = 224;
+
+//Animation
+stop_anim = 0;
+blink_anim = 1;
+pulse_anim = 2;
+rainbow_anim = 3;
+alternate_blink_anim = 4;
+
+//Predefined speed (in ms)
+slower = 2000;
+slow = 1000;
+normal = 100;
+fast = 50;
+faster = 30;
+
+function blink(led,delay){
+	return "animation;"+led+";"+blink_anim+";"+delay+";0";
+}
+
+function pulse(led){
+	return "animation;"+led+";"+pulse_anim+";0;0";
+}
+
+function rainbow(led){
+	return "animation;"+led+";"+rainbow_anim+";0;0";
+}
+
+function alternate_blink(led1,led2,delay){
+	return "animation;"+led1+";"+alternate_blink_anim+";0;0";
+}
+
+function stop(led){
+	return "animation;"+led+";"+stop_anim+";0;0";
+}
+
+function load(settings){
+	return "load;"+settings;
+}
+
+
+function brightness(bright){
+	return "brightness;"+bright;
+}
+
+function off(led){
+	return "color;"+led+";0;0;0";
+}
+
+function on(led){
+	return "color;"+led+";0;0;255";
+}
+
+function color(led,hue){
+	return "color;"+led+";"+hue+";255;255";
+}
+
+function hsv(led,h,s,v){
+	return "color;"+led+";"+h+";"+s+";"+v;
+}
+</script>
+<script>
+  //Websocket
+leds = new WebSocket("ws://:");
+leds.onopen = arduino_ok;
+leds.onmessage = arduino_read;
+leds.onerror = error_message;
+leds.onclose = error_message;
+  
+  nb_settings = ( * 6) +2;
+  
+  function settings(){
+  	return load(document.getElementById("send").value);
+  }
+  
+  function error_message(){
+  	document.getElementById("status").value = "";
+  }
+  
+  function arduino_ok(){
+  	document.getElementById("status").value = "";
+  }
+  
+  function arduino_read(event){
+  	console.log(event.data);
+  	document.getElementById("status").value = event.data;
+  	state_of_leds = event.data.split(";");
+  	state_of_leds.pop();
+  }
+</script>
