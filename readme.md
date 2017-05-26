@@ -3,10 +3,30 @@
 
 ![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds2.gif)   
 **leds** is an USB device based on an Arduino nano (clone) to control 1 or more LEDs.   
-You can animate each leds independantly, and change the color using hsv colors.
+You can animate each leds independently, and change the color using hsv colors.
+
+<!-- TOC -->
+
+- [Downloads](#downloads)
+- [Applications](#applications)
+- [How to build leds](#how-to-build-leds)
+    - [Arduino](#arduino)
+    - [Components](#components)
+        - [led2](#led2)
+        - [led5](#led5)
+        - [Strip WS2812B](#strip-ws2812b)
+    - [Wiring](#wiring)
+        - [Warning](#warning)
+
+<!-- /TOC -->
+
+# Downloads
 
 * [Download Object](https://github.com/madnerdorg/leds/archive/master.zip)
 * [Download LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
+* [Source](https://github.com/madnerdorg/libreconnect/releases)
+
+
 
 # Applications
 Required [LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
@@ -14,6 +34,7 @@ Required [LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
 * [apps/html](https://github.com/madnerdorg/leds/tree/master/apps)  
 Setup your leds using a webpage, once you like how your leds shines, save it and then it will remembers its state some
 you can use it wherever you want!   
+![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds_html.jpg)   
 
 * [apps/tasker](https://github.com/madnerdorg/leds/tree/master/apps)    
 Be notified when someone calls you, using tasker and some easy to use javascript scripts.
@@ -22,7 +43,7 @@ You can trigger leds for any events that happens on your phone!
 * apps/thunderbird [TODO]    
 Be notified when someone sends you an email, using **filters** and **mail alerts** plugin.
 
-# Build
+# How to build leds
 
 ## Arduino
 First we need to copy the code on an arduino, 
@@ -105,6 +126,8 @@ saturation/value (with the exception of the white color which use 0 as saturatio
 color;0;0;255;255
 ```
 # Animation
+
+![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds5.gif)  
 * 0: No animation
 *  1: Blinking (param1:speed in ms)
 *  2: Pulsing
