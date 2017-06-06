@@ -53,9 +53,9 @@ First we need to copy the code on an arduino,
 ## Components
 Here is the list of components, you will need you can easily find it using these keywords on ebay/aliexpress etc...
 ### led2
-* Arduino nano clone CH340G (mini-usb): 2€
-### led5
 * RobotDyn Nano V3 (micro-usb): 2€
+### led5
+* Arduino nano clone CH340G (mini-usb): 2€
 ### Strip WS2812B
 * 30 leds WS2812B : 4.50€ ( 5 leds :0.75€)
 * Resistor pack 400pcs (3€) (1 resistor: 0.0071€)
