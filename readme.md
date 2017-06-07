@@ -82,8 +82,7 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 You will have a more uniform light, if you put the case inside another semi-transparent case.    
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
-Downloads Models here : https://github.com/madnerdorg/leds/tree/master/3D    
-
+Downloads Models here : https://github.com/madnerdorg/leds/tree/master/stl    
 
 # Commands available
 Here are the commands available, you can send it using Arduino at baudrate 115200.
