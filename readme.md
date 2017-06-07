@@ -53,9 +53,9 @@ First we need to copy the code on an arduino,
 ## Components
 Here is the list of components, you will need you can easily find it using these keywords on ebay/aliexpress etc...
 ### led2
-* Arduino nano clone CH340G (mini-usb): 2€
-### led5
 * RobotDyn Nano V3 (micro-usb): 2€
+### led5
+* Arduino nano clone CH340G (mini-usb): 2€
 ### Strip WS2812B
 * 30 leds WS2812B : 4.50€ ( 5 leds :0.75€)
 * Resistor pack 400pcs (3€) (1 resistor: 0.0071€)
@@ -82,8 +82,7 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 You will have a more uniform light, if you put the case inside another semi-transparent case.    
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
-Downloads Models here : https://github.com/madnerdorg/leds/tree/master/3D    
-
+Downloads Models here : https://github.com/madnerdorg/leds/tree/master/stl    
 
 # Commands available
 Here are the commands available, you can send it using Arduino at baudrate 115200.
