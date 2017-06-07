@@ -91,7 +91,7 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 Afin d'avoir une lumière uniforme, vous pouvez utiliser un boitier semi-transparent en plus du boitier.
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
-Télécharger les modèles ici: https://github.com/madnerdorg/leds/tree/master/3D    
+Télécharger les modèles ici: https://github.com/madnerdorg/leds/tree/master/stl   
 
 # Commandes disponibles
 Voici les commandes disponibles, vous pouvez les envoyer en utilisant le logiciel Arduino (baudrate 115200)
