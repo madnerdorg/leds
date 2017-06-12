@@ -1,6 +1,6 @@
 - var title = "Led"
 - var device = "leds"
-- var send = device + ".send"
+- var send = "leds.send"
 
 doctype html
 head
@@ -9,6 +9,15 @@ head
 	style
 		include style.css
 body.background
+	input(
+		type="text"
+		id="leds_ip"
+		onblur="saveIP()"
+		placeholder="ws://localhost:42001"
+	)
+
+	button.white(onclick='location.reload()')="OK"
+
 	- for (var i=0; i < leds; i++)
 		h1=title.toUpperCase() + " " + i
 		button.black(onclick=send+'(off('+i+'))')=t_off
@@ -34,7 +43,7 @@ body.background
 	button.red(onclick=send+'("/clear")')=t_clear
 	button.blue(onclick=send+"('/status')")=t_status
 	button(onclick=send+'("value;255")') Sync
-	
+
 	textarea#status
 
 	h1 Code
@@ -49,12 +58,29 @@ body.background
 script
 	include leds.js
 script.
+	
+	
+	if(localStorage.temphum_ip === undefined){
+			console.log("No ip saved");
+			localStorage.setItem("leds_ip","ws://localhost:42001");
+			leds_ip = "ws://localhost:42001";
+	} 
+
+	leds_ip = localStorage.getItem("leds_ip");
+
+	function saveIP(){
+			leds_ip = document.getElementById('leds_ip').value;
+			console.log("Saved ip:" + leds_ip);
+			localStorage.setItem("leds_ip",leds_ip);
+	}
+	document.getElementById("leds_ip").value = leds_ip
+
 	//Websocket
-	#{device} = new WebSocket("ws://#{ip}:#{port}");
-	#{device}.onopen = arduino_ok;
-	#{device}.onmessage = arduino_read;
-	#{device}.onerror = error_message;
-	#{device}.onclose = error_message;
+	leds = new WebSocket(leds_ip);
+	leds.onopen = arduino_ok;
+	leds.onmessage = arduino_read;
+	leds.onerror = error_message;
+	leds.onclose = error_message;
 
 	nb_settings = (#{leds} * 6) +2;
 

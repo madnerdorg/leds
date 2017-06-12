@@ -23,6 +23,11 @@
 			font-family: "Arial";
 		}
 
+		input{
+			height:60px;
+		    font-size:15pt;
+		}
+
 		button{
 			width:128px;
 			height:64px;
@@ -37,7 +42,7 @@
 
 		button:hover{opacity:0.6;}
 
-		button:active{transform:scale(2,2);}
+		button:active{transform:scale(1.2,1.2);}
 
 		textarea{
 			width:100%;
@@ -50,6 +55,8 @@
   </style>
 </head>
 <body class="background">
+  <input type="text" id="leds_ip" onblur="saveIP()" placeholder="ws://localhost:42001">
+  <button class="white" onclick="location.reload()">OK</button>
   <h1>LED 0</h1>
   <button class="black" onclick="leds.send(off(0))">OFF</button>
   <button class="white" onclick="leds.send(on(0))">ON</button>
@@ -171,12 +178,27 @@ function hsv(led,h,s,v){
 }
 </script>
 <script>
+  if(localStorage.temphum_ip === undefined){
+  		console.log("No ip saved");
+  		localStorage.setItem("leds_ip","ws://localhost:42001");
+  		leds_ip = "ws://localhost:42001";
+  } 
+  
+  leds_ip = localStorage.getItem("leds_ip");
+  
+  function saveIP(){
+  		leds_ip = document.getElementById('leds_ip').value;
+  		console.log("Saved ip:" + leds_ip);
+  		localStorage.setItem("leds_ip",leds_ip);
+  }
+  document.getElementById("leds_ip").value = leds_ip
+  
   //Websocket
-leds = new WebSocket("ws://localhost:42001");
-leds.onopen = arduino_ok;
-leds.onmessage = arduino_read;
-leds.onerror = error_message;
-leds.onclose = error_message;
+  leds = new WebSocket(leds_ip);
+  leds.onopen = arduino_ok;
+  leds.onmessage = arduino_read;
+  leds.onerror = error_message;
+  leds.onclose = error_message;
   
   nb_settings = (2 * 6) +2;
   

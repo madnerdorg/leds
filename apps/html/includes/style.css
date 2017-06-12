@@ -18,6 +18,11 @@
 			font-family: "Arial";
 		}
 
+		input{
+			height:60px;
+		    font-size:15pt;
+		}
+
 		button{
 			width:128px;
 			height:64px;
@@ -32,7 +37,7 @@
 
 		button:hover{opacity:0.6;}
 
-		button:active{transform:scale(2,2);}
+		button:active{transform:scale(1.2,1.2);}
 
 		textarea{
 			width:100%;
