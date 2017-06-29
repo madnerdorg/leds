@@ -2,7 +2,7 @@
 <!-- Translation--><!DOCTYPE html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Led</title>
+  <title>Leds</title>
   <style>
 		.red{background-color:#f67e7e;}
 		.orange{background-color:peachpuff;}
@@ -52,106 +52,126 @@
 
 		ul{font-size: 22px;color: #22473b;}
 
+
+		#passwordPrompt{
+			position:fixed;
+			top:0px;
+			width:100%;
+			background-color:#d5d7d7;
+			text-align:center;
+			z-index: 99;
+			display: none;
+		}
+
   </style>
 </head>
 <body class="background">
-  <input type="text" id="leds_ip" onblur="saveIP()" placeholder="ws://localhost:42001">
-  <button class="white" onclick="location.reload()">OK</button>
-  <h1>LED 0</h1>
-  <button class="black" onclick="leds.send(off(0))">OFF</button>
-  <button class="white" onclick="leds.send(on(0))">ON</button>
-  <button class="red" onclick="leds.send(color(0,red))">Red</button>
-  <button class="orange" onclick="leds.send(color(0,orange))">Orange</button>
-  <button class="yellow" onclick="leds.send(color(0,yellow))">Yellow</button>
-  <button class="green" onclick="leds.send(color(0,green))">Green</button>
-  <button class="aqua" onclick="leds.send(color(0,aqua))">Aqua</button>
-  <button class="blue" onclick="leds.send(color(0,blue))">Blue</button>
-  <button class="purple" onclick="leds.send(color(0,purple))">Purple</button>
-  <button class="pink" onclick="leds.send(color(0,pink))">Pink</button>
-  <button onclick="leds.send(stop(0))">Stop</button>
-  <button onclick="leds.send(blink(0,normal))">Blink</button>
-  <button onclick="leds.send(pulse(0))">Pulse</button>
-  <button onclick="leds.send(rainbow(0))">Rainbow</button>
-  <h1>LED 1</h1>
-  <button class="black" onclick="leds.send(off(1))">OFF</button>
-  <button class="white" onclick="leds.send(on(1))">ON</button>
-  <button class="red" onclick="leds.send(color(1,red))">Red</button>
-  <button class="orange" onclick="leds.send(color(1,orange))">Orange</button>
-  <button class="yellow" onclick="leds.send(color(1,yellow))">Yellow</button>
-  <button class="green" onclick="leds.send(color(1,green))">Green</button>
-  <button class="aqua" onclick="leds.send(color(1,aqua))">Aqua</button>
-  <button class="blue" onclick="leds.send(color(1,blue))">Blue</button>
-  <button class="purple" onclick="leds.send(color(1,purple))">Purple</button>
-  <button class="pink" onclick="leds.send(color(1,pink))">Pink</button>
-  <button onclick="leds.send(stop(1))">Stop</button>
-  <button onclick="leds.send(blink(1,normal))">Blink</button>
-  <button onclick="leds.send(pulse(1))">Pulse</button>
-  <button onclick="leds.send(rainbow(1))">Rainbow</button>
-  <h1>LED 2</h1>
-  <button class="black" onclick="leds.send(off(2))">OFF</button>
-  <button class="white" onclick="leds.send(on(2))">ON</button>
-  <button class="red" onclick="leds.send(color(2,red))">Red</button>
-  <button class="orange" onclick="leds.send(color(2,orange))">Orange</button>
-  <button class="yellow" onclick="leds.send(color(2,yellow))">Yellow</button>
-  <button class="green" onclick="leds.send(color(2,green))">Green</button>
-  <button class="aqua" onclick="leds.send(color(2,aqua))">Aqua</button>
-  <button class="blue" onclick="leds.send(color(2,blue))">Blue</button>
-  <button class="purple" onclick="leds.send(color(2,purple))">Purple</button>
-  <button class="pink" onclick="leds.send(color(2,pink))">Pink</button>
-  <button onclick="leds.send(stop(2))">Stop</button>
-  <button onclick="leds.send(blink(2,normal))">Blink</button>
-  <button onclick="leds.send(pulse(2))">Pulse</button>
-  <button onclick="leds.send(rainbow(2))">Rainbow</button>
-  <h1>LED 3</h1>
-  <button class="black" onclick="leds.send(off(3))">OFF</button>
-  <button class="white" onclick="leds.send(on(3))">ON</button>
-  <button class="red" onclick="leds.send(color(3,red))">Red</button>
-  <button class="orange" onclick="leds.send(color(3,orange))">Orange</button>
-  <button class="yellow" onclick="leds.send(color(3,yellow))">Yellow</button>
-  <button class="green" onclick="leds.send(color(3,green))">Green</button>
-  <button class="aqua" onclick="leds.send(color(3,aqua))">Aqua</button>
-  <button class="blue" onclick="leds.send(color(3,blue))">Blue</button>
-  <button class="purple" onclick="leds.send(color(3,purple))">Purple</button>
-  <button class="pink" onclick="leds.send(color(3,pink))">Pink</button>
-  <button onclick="leds.send(stop(3))">Stop</button>
-  <button onclick="leds.send(blink(3,normal))">Blink</button>
-  <button onclick="leds.send(pulse(3))">Pulse</button>
-  <button onclick="leds.send(rainbow(3))">Rainbow</button>
-  <h1>LED 4</h1>
-  <button class="black" onclick="leds.send(off(4))">OFF</button>
-  <button class="white" onclick="leds.send(on(4))">ON</button>
-  <button class="red" onclick="leds.send(color(4,red))">Red</button>
-  <button class="orange" onclick="leds.send(color(4,orange))">Orange</button>
-  <button class="yellow" onclick="leds.send(color(4,yellow))">Yellow</button>
-  <button class="green" onclick="leds.send(color(4,green))">Green</button>
-  <button class="aqua" onclick="leds.send(color(4,aqua))">Aqua</button>
-  <button class="blue" onclick="leds.send(color(4,blue))">Blue</button>
-  <button class="purple" onclick="leds.send(color(4,purple))">Purple</button>
-  <button class="pink" onclick="leds.send(color(4,pink))">Pink</button>
-  <button onclick="leds.send(stop(4))">Stop</button>
-  <button onclick="leds.send(blink(4,normal))">Blink</button>
-  <button onclick="leds.send(pulse(4))">Pulse</button>
-  <button onclick="leds.send(rainbow(4))">Rainbow</button>
-  <h1>Settings</h1>
-  <button class="black" onclick="leds.send(&quot;/off&quot;)">OFF</button>
-  <button class="white" onclick="leds.send(&quot;/on&quot;)">ON</button>
-  <button onclick="leds.send(&quot;/reset&quot;)">Load</button>
-  <button onclick="leds.send(&quot;/save&quot;)">Save</button>
-  <button class="red" onclick="leds.send(&quot;/clear&quot;)">Erase</button>
-  <button class="blue" onclick="leds.send('/status')">Status</button>
-  <button onclick="leds.send(&quot;value;255&quot;)">Sync</button>
-  <textarea id="status"></textarea>
-  <h1>Code</h1>
-  <textarea id="send"></textarea>
-  <button class="blue" onclick="leds.send(settings())">Send</button>
-  <ul>
-    <li>Police: 255;0;255;255;4;0;1;160;255;255;4;1;70;</li>
-    <li>ON: 255;0;0;255;0;0;0;0;0;255;0;0;0;</li>
-    <li>Fire: 123;32;255;41;2;0;0;32;255;129;2;0;0;</li>
-    <li>Radioactive: 123;96;255;0;1;50;0;96;255;0;1;100;0;</li>
-  </ul>
+  <input type="text" id="leds_url" placeholder="ws://localhost:42001">
+  <button class="white" onclick="changeURL()">OK</button>
+  <div id="passwordPrompt">
+    <h1 id="titlePassword">Password required</h1>
+    <input type="password" id="passwordInput"><br><br>
+    <button class="green" onclick="sendPassword()">OK</button>
+    <button class="red" onclick="cancelPassword()">Cancel</button>
+  </div>
+  <div id="ledsControls">
+    <h1>LEDS 0</h1>
+    <button class="black" onclick="leds.send(off(0))">OFF</button>
+    <button class="white" onclick="leds.send(on(0))">ON</button>
+    <button class="red" onclick="leds.send(color(0,red))">Red</button>
+    <button class="orange" onclick="leds.send(color(0,orange))">Orange</button>
+    <button class="yellow" onclick="leds.send(color(0,yellow))">Yellow</button>
+    <button class="green" onclick="leds.send(color(0,green))">Green</button>
+    <button class="aqua" onclick="leds.send(color(0,aqua))">Aqua</button>
+    <button class="blue" onclick="leds.send(color(0,blue))">Blue</button>
+    <button class="purple" onclick="leds.send(color(0,purple))">Purple</button>
+    <button class="pink" onclick="leds.send(color(0,pink))">Pink</button>
+    <button onclick="leds.send(stop(0))">Stop</button>
+    <button onclick="leds.send(blink(0,normal))">Blink</button>
+    <button onclick="leds.send(pulse(0))">Pulse</button>
+    <button onclick="leds.send(rainbow(0))">Rainbow</button>
+    <h1>LEDS 1</h1>
+    <button class="black" onclick="leds.send(off(1))">OFF</button>
+    <button class="white" onclick="leds.send(on(1))">ON</button>
+    <button class="red" onclick="leds.send(color(1,red))">Red</button>
+    <button class="orange" onclick="leds.send(color(1,orange))">Orange</button>
+    <button class="yellow" onclick="leds.send(color(1,yellow))">Yellow</button>
+    <button class="green" onclick="leds.send(color(1,green))">Green</button>
+    <button class="aqua" onclick="leds.send(color(1,aqua))">Aqua</button>
+    <button class="blue" onclick="leds.send(color(1,blue))">Blue</button>
+    <button class="purple" onclick="leds.send(color(1,purple))">Purple</button>
+    <button class="pink" onclick="leds.send(color(1,pink))">Pink</button>
+    <button onclick="leds.send(stop(1))">Stop</button>
+    <button onclick="leds.send(blink(1,normal))">Blink</button>
+    <button onclick="leds.send(pulse(1))">Pulse</button>
+    <button onclick="leds.send(rainbow(1))">Rainbow</button>
+    <h1>LEDS 2</h1>
+    <button class="black" onclick="leds.send(off(2))">OFF</button>
+    <button class="white" onclick="leds.send(on(2))">ON</button>
+    <button class="red" onclick="leds.send(color(2,red))">Red</button>
+    <button class="orange" onclick="leds.send(color(2,orange))">Orange</button>
+    <button class="yellow" onclick="leds.send(color(2,yellow))">Yellow</button>
+    <button class="green" onclick="leds.send(color(2,green))">Green</button>
+    <button class="aqua" onclick="leds.send(color(2,aqua))">Aqua</button>
+    <button class="blue" onclick="leds.send(color(2,blue))">Blue</button>
+    <button class="purple" onclick="leds.send(color(2,purple))">Purple</button>
+    <button class="pink" onclick="leds.send(color(2,pink))">Pink</button>
+    <button onclick="leds.send(stop(2))">Stop</button>
+    <button onclick="leds.send(blink(2,normal))">Blink</button>
+    <button onclick="leds.send(pulse(2))">Pulse</button>
+    <button onclick="leds.send(rainbow(2))">Rainbow</button>
+    <h1>LEDS 3</h1>
+    <button class="black" onclick="leds.send(off(3))">OFF</button>
+    <button class="white" onclick="leds.send(on(3))">ON</button>
+    <button class="red" onclick="leds.send(color(3,red))">Red</button>
+    <button class="orange" onclick="leds.send(color(3,orange))">Orange</button>
+    <button class="yellow" onclick="leds.send(color(3,yellow))">Yellow</button>
+    <button class="green" onclick="leds.send(color(3,green))">Green</button>
+    <button class="aqua" onclick="leds.send(color(3,aqua))">Aqua</button>
+    <button class="blue" onclick="leds.send(color(3,blue))">Blue</button>
+    <button class="purple" onclick="leds.send(color(3,purple))">Purple</button>
+    <button class="pink" onclick="leds.send(color(3,pink))">Pink</button>
+    <button onclick="leds.send(stop(3))">Stop</button>
+    <button onclick="leds.send(blink(3,normal))">Blink</button>
+    <button onclick="leds.send(pulse(3))">Pulse</button>
+    <button onclick="leds.send(rainbow(3))">Rainbow</button>
+    <h1>LEDS 4</h1>
+    <button class="black" onclick="leds.send(off(4))">OFF</button>
+    <button class="white" onclick="leds.send(on(4))">ON</button>
+    <button class="red" onclick="leds.send(color(4,red))">Red</button>
+    <button class="orange" onclick="leds.send(color(4,orange))">Orange</button>
+    <button class="yellow" onclick="leds.send(color(4,yellow))">Yellow</button>
+    <button class="green" onclick="leds.send(color(4,green))">Green</button>
+    <button class="aqua" onclick="leds.send(color(4,aqua))">Aqua</button>
+    <button class="blue" onclick="leds.send(color(4,blue))">Blue</button>
+    <button class="purple" onclick="leds.send(color(4,purple))">Purple</button>
+    <button class="pink" onclick="leds.send(color(4,pink))">Pink</button>
+    <button onclick="leds.send(stop(4))">Stop</button>
+    <button onclick="leds.send(blink(4,normal))">Blink</button>
+    <button onclick="leds.send(pulse(4))">Pulse</button>
+    <button onclick="leds.send(rainbow(4))">Rainbow</button>
+    <h1>Settings</h1>
+    <button class="black" onclick="leds.send(&quot;/off&quot;)">OFF</button>
+    <button class="white" onclick="leds.send(&quot;/on&quot;)">ON</button>
+    <button onclick="leds.send(&quot;/reset&quot;)">Load</button>
+    <button onclick="leds.send(&quot;/save&quot;)">Save</button>
+    <button class="red" onclick="leds.send(&quot;/clear&quot;)">Erase</button>
+    <button class="blue" onclick="leds.send('/status')">Status</button>
+    <button onclick="leds.send(&quot;/sync&quot;)">Sync</button>
+    <textarea id="status"></textarea>
+    <h1>Code</h1>
+    <textarea id="send"></textarea>
+    <button class="blue" onclick="leds.send(settings())">Send</button>
+    <ul>
+      <li>Police: load;255;0;255;255;4;0;1;160;255;255;4;1;70;</li>
+      <li>ON: load;255;0;0;255;0;0;0;0;0;255;0;0;0;</li>
+      <li>Fire: load;123;32;255;41;2;0;0;32;255;129;2;0;0;</li>
+      <li>Radioactive: load;123;96;255;0;1;50;0;96;255;0;1;100;0;</li>
+    </ul>
+  </div>
 </body>
-<script>
+<script>/* Leds commands generator */
+
 //Rainbow hue chart
 //https://github.com/FastLED/FastLED/wiki/FastLED-HSV-Colors
 red = 0;
@@ -177,6 +197,8 @@ normal = 100;
 fast = 50;
 faster = 30;
 
+
+//Animation
 function blink(led,delay){
 	return "animation;"+led+";"+blink_anim+";"+delay+";0";
 }
@@ -197,11 +219,7 @@ function stop(led){
 	return "animation;"+led+";"+stop_anim+";0;0";
 }
 
-function load(settings){
-	return "load;"+settings;
-}
-
-
+//Color
 function brightness(bright){
 	return "brightness;"+bright;
 }
@@ -223,49 +241,87 @@ function hsv(led,h,s,v){
 }
 </script>
 <script>
-  if(localStorage.temphum_ip === undefined){
-  		console.log("No ip saved");
-  		localStorage.setItem("leds_ip","ws://localhost:42001");
-  		leds_ip = "ws://localhost:42001";
-  } 
-  
-  leds_ip = localStorage.getItem("leds_ip");
-  
-  function saveIP(){
-  		leds_ip = document.getElementById('leds_ip').value;
-  		console.log("Saved ip:" + leds_ip);
-  		localStorage.setItem("leds_ip",leds_ip);
+  /* SAVE IP IN LOCALSTORAGE */
+  if(localStorage.leds_url === undefined){
+  	console.log("No url saved");
+  	localStorage.setItem("leds_url","ws://localhost:42001");
+  	leds_url = "ws://localhost:42001";
+  } else {
+  	console.log("Get url from localstorage")
+  	leds_url = localStorage.getItem("leds_url");
   }
-  document.getElementById("leds_ip").value = leds_ip
+  
+  document.getElementById('leds_url').value = leds_url;
+  
+  function changeURL(){
+  	leds_url = document.getElementById('leds_url').value;
+  	console.log("Saved ip:" + leds_url);
+  	localStorage.setItem("leds_url",leds_url);
+  	leds.close();
+  	leds = new WebSocket(leds_url);
+  	leds.onopen = arduinoOk;
+  	leds.onmessage = arduinoRead;
+  	leds.onerror = errorMessage;
+  	leds.onclose = errorMessage;
+  }
   
   //Websocket
-  leds = new WebSocket(leds_ip);
-  leds.onopen = arduino_ok;
-  leds.onmessage = arduino_read;
-  leds.onerror = error_message;
-  leds.onclose = error_message;
+  leds = new WebSocket(leds_url);
+  leds.onopen = arduinoOk;
+  leds.onmessage = arduinoRead;
+  leds.onerror = errorMessage;
+  leds.onclose = errorMessage;
   
-  nb_settings = (5 * 6) +2;
+  
   
   function settings(){
-  	return load(document.getElementById("send").value);
+  	return document.getElementById("send").value;
   }
   
-  function error_message(){
+  function errorMessage(){
   	document.getElementById("status").value = "Not connected";
-  	document.body.style = "filter: grayscale(100%);"
+  	document.getElementById("ledsControls").style = "filter: grayscale(100%);"
   	window.navigator.vibrate(200);
   }
   
-  function arduino_ok(){
+  function arduinoOk(){
   	document.getElementById("status").value = "Connected";
+  	document.body.style = ""
+  	document.getElementById("ledsControls").style = "opacity:1"
   }
   
-  function arduino_read(event){
+  function arduinoRead(event){
   	console.log(event.data);
+  	if(event.data == "@password"){
+  		console.log("password");
+  		window.navigator.vibrate(200);
+  		document.getElementById("passwordPrompt").style = "display:block;"
+  		document.getElementById("ledsControls").style = "opacity:0.5"
+  	}
+  
+  	if(event.data == "@logged"){
+  		document.getElementById("passwordPrompt").style = "display:hide;"
+  		document.getElementById("ledsControls").style = ""
+  	}
+  
+  	if(event.data.split(":")[0] == "@wrongpassword"){
+  		document.getElementById("titlePassword").innerHTML = "Wrong Password" + " - " + event.data.split(":")[1]
+  	}
+  
   	document.getElementById("status").value = event.data;
-  	state_of_leds = event.data.split(";");
-  	state_of_leds.pop();
   	window.navigator.vibrate(20);
+  }
+  
+  function cancelPassword(){
+  	document.getElementById("passwordPrompt").style = "display:hide;"
+  	document.getElementById("ledsControls").style = ""
+  	leds.close();
+  }
+  
+  function sendPassword(){
+  	var password = document.getElementById('passwordInput').value;
+  	if (password.length >= 1){
+  		leds.send(password);
+  	}
   }
 </script>

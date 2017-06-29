@@ -1,4 +1,4 @@
-- var title = "Led"
+- var title = "Leds"
 - var device = "leds"
 - var send = "leds.send"
 
@@ -11,99 +11,147 @@ head
 body.background
 	input(
 		type="text"
-		id="leds_ip"
-		onblur="saveIP()"
+		id=device + "_url"
 		placeholder="ws://localhost:42001"
 	)
+	button.white(onclick='changeURL()')="OK"
 
-	button.white(onclick='location.reload()')="OK"
 
-	- for (var i=0; i < leds; i++)
-		h1=title.toUpperCase() + " " + i
-		button.black(onclick=send+'(off('+i+'))')=t_off
-		button.white(onclick=send+'(on('+i+'))')=t_on
-		button.red(onclick=send+'(color('+i+',red))')=t_red
-		button.orange(onclick=send+'(color('+i+',orange))')=t_orange
-		button.yellow(onclick=send+'(color('+i+',yellow))')=t_yellow
-		button.green(onclick=send+'(color('+i+',green))')=t_green
-		button.aqua(onclick=device+'.send(color('+i+',aqua))')=t_aqua
-		button.blue(onclick=send+'(color('+i+',blue))')=t_blue
-		button.purple(onclick=send+'(color('+i+',purple))')=t_purple
-		button.pink(onclick=send+'(color('+i+',pink))')=t_pink
-		button(onclick=send+'(stop('+i+'))')=t_stop
-		button(onclick=send+'(blink('+i+',normal))')=t_blink
-		button(onclick=send+'(pulse('+i+'))')=t_pulse
-		button(onclick=send+'(rainbow('+i+'))')=t_rainbow
+	#passwordPrompt
+		h1#titlePassword=t_password_required
+		input(
+			type="password"
+			id="passwordInput"
+		)
+		br
+		br
+		button.green(onclick='sendPassword()') OK
+		button.red(onclick='cancelPassword()')=t_cancel
 
-	h1 Settings
-	button.black(onclick=send+'("/off")')=t_off
-	button.white(onclick=send+'("/on")')=t_on
-	button(onclick=send+'("/reset")')=t_reset
-	button(onclick=send+'("/save")')=t_save
-	button.red(onclick=send+'("/clear")')=t_clear
-	button.blue(onclick=send+"('/status')")=t_status
-	button(onclick=send+'("value;255")') Sync
+	#ledsControls
+		- for (var i=0; i < leds; i++)
+			h1=title.toUpperCase() + " " + i
+			button.black(onclick=send+'(off('+i+'))')=t_off
+			button.white(onclick=send+'(on('+i+'))')=t_on
+			button.red(onclick=send+'(color('+i+',red))')=t_red
+			button.orange(onclick=send+'(color('+i+',orange))')=t_orange
+			button.yellow(onclick=send+'(color('+i+',yellow))')=t_yellow
+			button.green(onclick=send+'(color('+i+',green))')=t_green
+			button.aqua(onclick=device+'.send(color('+i+',aqua))')=t_aqua
+			button.blue(onclick=send+'(color('+i+',blue))')=t_blue
+			button.purple(onclick=send+'(color('+i+',purple))')=t_purple
+			button.pink(onclick=send+'(color('+i+',pink))')=t_pink
+			button(onclick=send+'(stop('+i+'))')=t_stop
+			button(onclick=send+'(blink('+i+',normal))')=t_blink
+			button(onclick=send+'(pulse('+i+'))')=t_pulse
+			button(onclick=send+'(rainbow('+i+'))')=t_rainbow
 
-	textarea#status
+		h1 Settings
+		button.black(onclick=send+'("/off")')=t_off
+		button.white(onclick=send+'("/on")')=t_on
+		button(onclick=send+'("/reset")')=t_reset
+		button(onclick=send+'("/save")')=t_save
+		button.red(onclick=send+'("/clear")')=t_clear
+		button.blue(onclick=send+"('/status')")=t_status
+		button(onclick=send+'("/sync")') Sync
 
-	h1 Code
-	textarea#send
-	button.blue(onclick=send+"(settings())")=t_send
-	ul
-		li Police: 255;0;255;255;4;0;1;160;255;255;4;1;70;
-		li ON: 255;0;0;255;0;0;0;0;0;255;0;0;0;
-		li Fire: 123;32;255;41;2;0;0;32;255;129;2;0;0;
-		li Radioactive: 123;96;255;0;1;50;0;96;255;0;1;100;0;
+		textarea#status
+
+		h1 Code
+		textarea#send
+		button.blue(onclick=send+"(settings())")=t_send
+		ul
+			li Police: load;255;0;255;255;4;0;1;160;255;255;4;1;70;
+			li ON: load;255;0;0;255;0;0;0;0;0;255;0;0;0;
+			li Fire: load;123;32;255;41;2;0;0;32;255;129;2;0;0;
+			li Radioactive: load;123;96;255;0;1;50;0;96;255;0;1;100;0;
 
 script
 	include leds.js
 script.
 	
-	
-	if(localStorage.temphum_ip === undefined){
-			console.log("No ip saved");
-			localStorage.setItem("leds_ip","ws://localhost:42001");
-			leds_ip = "ws://localhost:42001";
-	} 
-
-	leds_ip = localStorage.getItem("leds_ip");
-
-	function saveIP(){
-			leds_ip = document.getElementById('leds_ip').value;
-			console.log("Saved ip:" + leds_ip);
-			localStorage.setItem("leds_ip",leds_ip);
+	/* SAVE IP IN LOCALSTORAGE */
+	if(localStorage.leds_url === undefined){
+		console.log("No url saved");
+		localStorage.setItem("leds_url","ws://localhost:42001");
+		leds_url = "ws://localhost:42001";
+	} else {
+		console.log("Get url from localstorage")
+		leds_url = localStorage.getItem("leds_url");
 	}
-	document.getElementById("leds_ip").value = leds_ip
+
+	document.getElementById('leds_url').value = leds_url;
+
+	function changeURL(){
+		leds_url = document.getElementById('leds_url').value;
+		console.log("Saved ip:" + leds_url);
+		localStorage.setItem("leds_url",leds_url);
+		leds.close();
+		leds = new WebSocket(leds_url);
+		leds.onopen = arduinoOk;
+		leds.onmessage = arduinoRead;
+		leds.onerror = errorMessage;
+		leds.onclose = errorMessage;
+	}
 
 	//Websocket
-	leds = new WebSocket(leds_ip);
-	leds.onopen = arduino_ok;
-	leds.onmessage = arduino_read;
-	leds.onerror = error_message;
-	leds.onclose = error_message;
+	leds = new WebSocket(leds_url);
+	leds.onopen = arduinoOk;
+	leds.onmessage = arduinoRead;
+	leds.onerror = errorMessage;
+	leds.onclose = errorMessage;
 
-	nb_settings = (#{leds} * 6) +2;
+
 
 	function settings(){
-		return load(document.getElementById("send").value);
+		return document.getElementById("send").value;
 	}
 
-	function error_message(){
+	function errorMessage(){
 		document.getElementById("status").value = "#{t_notconnected}";
-		document.body.style = "filter: grayscale(100%);"
+		document.getElementById("ledsControls").style = "filter: grayscale(100%);"
 		window.navigator.vibrate(200);
 	}
 
-	function arduino_ok(){
+	function arduinoOk(){
 		document.getElementById("status").value = "#{t_connected}";
+		document.body.style = ""
+		document.getElementById("ledsControls").style = "opacity:1"
 	}
 
-	function arduino_read(event){
+	function arduinoRead(event){
 		console.log(event.data);
+		if(event.data == "@password"){
+			console.log("password");
+			window.navigator.vibrate(200);
+			document.getElementById("passwordPrompt").style = "display:block;"
+			document.getElementById("ledsControls").style = "opacity:0.5"
+		}
+
+		if(event.data == "@logged"){
+			document.getElementById("passwordPrompt").style = "display:hide;"
+			document.getElementById("ledsControls").style = ""
+		}
+
+		if(event.data.split(":")[0] == "@wrongpassword"){
+			document.getElementById("titlePassword").innerHTML = "#{t_wrongpassword}" + " - " + event.data.split(":")[1]
+		}
+
 		document.getElementById("status").value = event.data;
-		state_of_leds = event.data.split(";");
-		state_of_leds.pop();
 		window.navigator.vibrate(20);
+	}
+
+	function cancelPassword(){
+		document.getElementById("passwordPrompt").style = "display:hide;"
+		document.getElementById("ledsControls").style = ""
+		leds.close();
+	}
+
+	function sendPassword(){
+		var password = document.getElementById('passwordInput').value;
+		if (password.length >= 1){
+			leds.send(password);
+		}
 	}
 
 

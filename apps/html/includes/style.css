@@ -46,3 +46,14 @@
 		}
 
 		ul{font-size: 22px;color: #22473b;}
+
+
+		#passwordPrompt{
+			position:fixed;
+			top:0px;
+			width:100%;
+			background-color:#d5d7d7;
+			text-align:center;
+			z-index: 99;
+			display: none;
+		}
