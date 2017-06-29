@@ -1,3 +1,4 @@
+/* Leds commands generator */
 
 //Rainbow hue chart
 //https://github.com/FastLED/FastLED/wiki/FastLED-HSV-Colors
@@ -24,6 +25,8 @@ normal = 100;
 fast = 50;
 faster = 30;
 
+
+//Animation
 function blink(led,delay){
 	return "animation;"+led+";"+blink_anim+";"+delay+";0";
 }
@@ -44,11 +47,7 @@ function stop(led){
 	return "animation;"+led+";"+stop_anim+";0;0";
 }
 
-function load(settings){
-	return "load;"+settings;
-}
-
-
+//Color
 function brightness(bright){
 	return "brightness;"+bright;
 }
