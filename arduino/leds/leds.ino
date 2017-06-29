@@ -271,6 +271,7 @@ void serialManager() {
            for (int led = 0; led < NUM_LEDS; led++) {
               val[led] = 255;
            }
+           Serial.println(readString);
         }
 
         if (readString == "/reset"){
@@ -301,9 +302,13 @@ void serialManager() {
             int s = splitString(readString, ';', 3).toInt();
             int v = splitString(readString, ';', 4).toInt();
             change_color(led, h, s, v);
+            //If we turn off led we assume we want to stop the animation too.
+            if ( (h==0) && (s==0) && (v==0) ) {
+              change_anim(led,0,0,0);
+            }
             Serial.println(readString);
           }
-
+          
           //Change animation
           if (command == "animation") {
             int led = splitString(readString, ';', 1).toInt();
@@ -311,6 +316,10 @@ void serialManager() {
             int parameter1 = splitString(readString, ';', 3).toInt();
             int parameter2 = splitString(readString, ';', 4).toInt();
             change_anim(led, animation, parameter1, parameter2);
+            //Start Rainbow animation with red 
+            if(animation == 3){
+              change_color(led,0,255,255);
+            }
             Serial.println(readString);
           }
 
