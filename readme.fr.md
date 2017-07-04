@@ -3,7 +3,7 @@
 [![Libre Connect](https://madnerdorg.github.io/libreconnect/doc/img/libreconnect_devices_banner.png)](https://madnerdorg.github.io/libreconnect/doc/fr/devices)     
 [Télécharger Leds](https://github.com/madnerdorg/leds/archive/master.zip) /  [LibreConnect](https://madnerdorg.github.io/libreconnect/) /[Source](https://github.com/madnerdorg/leds)
 
-![Photo LEDs](doc/leds2.gif)   
+![Photo LEDs](doc/leds2.jpg)
 **leds** permet de contrôler 1 ou plusieurs LEDS (ws2812b).    
 Vous pouvez changer les couleurs en utilisant les couleurs HSV ainsi que  animer chaque leds indépendamment.    
 Une fois que vous êtes satisfait de l'apparence de vos leds, sauvez le résultat dans la mémoire (eeprom) de l'arduino.    
