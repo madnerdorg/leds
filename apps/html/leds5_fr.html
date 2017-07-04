@@ -66,13 +66,15 @@
   </style>
 </head>
 <body class="background">
-  <input type="text" id="leds_url" placeholder="ws://localhost:42001">
-  <button class="white" onclick="changeURL()">OK</button>
+  <input type="text" id="leds_url" placeholder="ws://localhost:42001" style="width:100%;">
+  <button class="white" onclick="changeURL()" style="width:100%;">OK</button>
+  <div id="validate"></div>
   <div id="passwordPrompt">
     <h1 id="titlePassword">Mot de passe</h1>
     <input type="password" id="passwordInput"><br><br>
     <button class="green" onclick="sendPassword()">OK</button>
     <button class="red" onclick="cancelPassword()">Annuler</button>
+    <button class="yellow" onclick="savePassword()">Sauver</button>
   </div>
   <div id="ledsControls">
     <h1>LEDS 0</h1>
@@ -158,6 +160,7 @@
     <button class="red" onclick="leds.send(&quot;/clear&quot;)">Effacer</button>
     <button class="blue" onclick="leds.send('/status')">Statut</button>
     <button onclick="leds.send(&quot;/sync&quot;)">Sync</button>
+    <button onclick="clearPassword()">Déconnexion</button>
     <textarea id="status"></textarea>
     <h1>Code</h1>
     <textarea id="send"></textarea>
@@ -278,10 +281,15 @@ function hsv(led,h,s,v){
   	return document.getElementById("send").value;
   }
   
-  function errorMessage(){
+  function errorMessage(event){
+  	console.log(event);
   	document.getElementById("status").value = "";
   	document.getElementById("ledsControls").style = "filter: grayscale(100%);"
   	window.navigator.vibrate(200);
+  	if(event.code == 1006){
+  		ssl_page = leds_url.replace("wss://","https://")
+  		document.getElementById("validate").innerHTML = '<a href="'+ssl_page+'" target="_blank">Valider le certificat SSL ici</a>';
+  	}
   }
   
   function arduinoOk(){
@@ -297,6 +305,9 @@ function hsv(led,h,s,v){
   		window.navigator.vibrate(200);
   		document.getElementById("passwordPrompt").style = "display:block;"
   		document.getElementById("ledsControls").style = "opacity:0.5"
+  		if(localStorage.leds_pass !== undefined){
+  			leds.send(localStorage.leds_pass);
+  		}
   	}
   
   	if(event.data == "@logged"){
@@ -315,6 +326,18 @@ function hsv(led,h,s,v){
   function cancelPassword(){
   	document.getElementById("passwordPrompt").style = "display:hide;"
   	document.getElementById("ledsControls").style = ""
+  	leds.close();
+  }
+  
+  function savePassword(){
+  	var password = document.getElementById('passwordInput').value;
+  	localStorage.setItem("leds_pass",password)
+  	sendPassword();
+  
+  }
+  
+  function clearPassword(){
+  	localStorage.removeItem("leds_pass");
   	leds.close();
   }
   

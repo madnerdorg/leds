@@ -11,11 +11,16 @@ head
 body.background
 	input(
 		type="text"
-		id=device + "_url"
+		id= device + "_url"
 		placeholder="ws://localhost:42001"
+		style="width:100%"
 	)
-	button.white(onclick='changeURL()')="OK"
+	button.white(
+		onclick="changeURL()"
+		style="width:100%"
+	)="OK"
 
+	#validate
 
 	#passwordPrompt
 		h1#titlePassword=t_password_required
@@ -27,6 +32,7 @@ body.background
 		br
 		button.green(onclick='sendPassword()') OK
 		button.red(onclick='cancelPassword()')=t_cancel
+		button.yellow(onclick='savePassword()')=t_save
 
 	#ledsControls
 		- for (var i=0; i < leds; i++)
@@ -54,6 +60,7 @@ body.background
 		button.red(onclick=send+'("/clear")')=t_clear
 		button.blue(onclick=send+"('/status')")=t_status
 		button(onclick=send+'("/sync")') Sync
+		button(onclick='clearPassword()')=t_disconnect
 
 		textarea#status
 
@@ -107,10 +114,15 @@ script.
 		return document.getElementById("send").value;
 	}
 
-	function errorMessage(){
+	function errorMessage(event){
+		console.log(event);
 		document.getElementById("status").value = "#{t_notconnected}";
 		document.getElementById("ledsControls").style = "filter: grayscale(100%);"
 		window.navigator.vibrate(200);
+		if(event.code == 1006){
+			ssl_page = leds_url.replace("wss://","https://")
+			document.getElementById("validate").innerHTML = '<a href="'+ssl_page+'" target="_blank">#{t_validate_ssl}</a>';
+		}
 	}
 
 	function arduinoOk(){
@@ -126,6 +138,9 @@ script.
 			window.navigator.vibrate(200);
 			document.getElementById("passwordPrompt").style = "display:block;"
 			document.getElementById("ledsControls").style = "opacity:0.5"
+			if(localStorage.leds_pass !== undefined){
+				leds.send(localStorage.leds_pass);
+			}
 		}
 
 		if(event.data == "@logged"){
@@ -144,6 +159,18 @@ script.
 	function cancelPassword(){
 		document.getElementById("passwordPrompt").style = "display:hide;"
 		document.getElementById("ledsControls").style = ""
+		leds.close();
+	}
+
+	function savePassword(){
+		var password = document.getElementById('passwordInput').value;
+		localStorage.setItem("leds_pass",password)
+		sendPassword();
+
+	}
+
+	function clearPassword(){
+		localStorage.removeItem("leds_pass");
 		leds.close();
 	}
 
