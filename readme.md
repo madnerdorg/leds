@@ -1,47 +1,64 @@
-[Version française / French version](https://github.com/madnerdorg/leds/blob/master/readme.fr.md)
+[Français](https://madnerdorg.github.io/leds/readme.fr)
 
+[![Libre Connect](https://madnerdorg.github.io/libreconnect/doc/img/libreconnect_devices_banner.png)](https://madnerdorg.github.io/libreconnect/doc/en/devices)   
+[Download Leds](https://github.com/madnerdorg/leds/archive/master.zip) /  [LibreConnect](https://madnerdorg.github.io/libreconnect/) /[Source](https://github.com/madnerdorg/leds)
 
-![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds2.gif)   
-**leds** is an USB device based on an Arduino nano (clone) to control 1 or more LEDs.   
-You can animate each leds independently, and change the color using hsv colors.
+![Photo LEDs](doc/leds2.jpg)   
+**leds** is a device to control 1 or more leds (ws2812b) using USB.   
+You can animate each leds independently, and change the color using **hsv colors**.  
 
-<!-- TOC -->
-
-- [Downloads](#downloads)
 - [Applications](#applications)
 - [How to build leds](#how-to-build-leds)
-    - [Arduino](#arduino)
-    - [Components](#components)
-        - [led2](#led2)
-        - [led5](#led5)
-        - [Strip WS2812B](#strip-ws2812b)
-    - [Wiring](#wiring)
-        - [Warning](#warning)
-
-<!-- /TOC -->
-
-# Downloads
-
-* [Download Object](https://github.com/madnerdorg/leds/archive/master.zip)
-* [Download LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
-* [Source](https://github.com/madnerdorg/libreconnect/releases)
-
-
+- [Commands](#commands)
 
 # Applications
-Required [LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
+> By default , leds are available at ws://localhost:42001
 
-* [apps/html](https://github.com/madnerdorg/leds/tree/master/apps)  
-Setup your leds using a webpage, once you like how your leds shines, save it and then it will remembers its state some
-you can use it wherever you want!   
+## [apps/html](http://madnerd.org/interface/leds2)  
+Control your leds using a webpage    
 ![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds_html.jpg)   
 
-* [apps/tasker](https://github.com/madnerdorg/leds/tree/master/apps)    
-Be notified when someone calls you, using tasker and some easy to use javascript scripts.
+## [apps/tasker](https://github.com/madnerdorg/leds/tree/master/apps/tasker)    
+![Tasker](doc/tasker.png)   
+Be notified when someone calls you, using [tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm) and some easy to use JavaScript.
 You can trigger leds for any events that happens on your phone!
 
-* apps/thunderbird [TODO]    
-Be notified when someone sends you an email, using **filters** and **mail alerts** plugin.
+You can also use [Power Toggles](https://play.google.com/store/apps/details?id=com.painless.pc) to make buttons on your notification bar.
+
+![Power Toggles](doc/power_toogles.png)
+
+Here is a script I use to turn off leds.
+* Create a task
+* Import your code using Code/Javascript
+* Remove auto exit
+* Delay set to 1 seconds.
+
+```
+ip="192.168.0.140";
+port=42001;
+
+
+bluepulse = "load;255;160;255;143;2;0;0;160;255;116;2;0;0;";
+police = "load;255;0;255;255;4;0;1;160;255;255;4;1;70;";
+fire = "load;123;32;255;41;2;0;0;32;255;129;2;0;0;";
+off = "/off";
+
+leds = new WebSocket("ws://"+ip+":"+port);
+leds.onopen = send;
+
+function send(){
+	leds.send(off);
+}
+```
+
+## apps/thunderbird    
+Be notified when someone sends you an email, using **filters** and [mail alerts](https://addons.mozilla.org/fr/thunderbird/addon/mailbox-alert/) plugin.
+
+You can use [ws-send](https://github.com/madnerdorg/libreconnect/blob/master/ws-send.py) to control leds.
+```
+"c:\libreconnect\ws-send.exe" -u "ws://localhost:42001" -m "/on"
+```
+
 
 # How to build leds
 
@@ -65,26 +82,25 @@ Here is the list of components, you will need you can easily find it using these
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds_wiring.jpg)
 ![Inside Led2](https://github.com/madnerdorg/leds/raw/master/doc/leds2_inside.jpg)
 
+* D6 --> RESISTOR (470Ω) DI
+* +5V --> 5V
+* GND --> GND
+
 ### Warning
-Do not used more than 5 LEDs without a dedicated power supply or this can damage the LEDs   
+Do not used more than 5 LEDs without a dedicated power supply or this can damage the LEDs, 
 Each led can draw up to **60ma** at full brightness   
 Arduino can provide up to **500ma** (on 5v/Gnd pin)   
 ```5 LEDs = 5x60ma = 300ma ```  
 Source:
-https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
-
-* D6 --> RESISTOR (470Ohm) DI
-* +5V --> 5V
-* GND --> GND
-
+[https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections]()
 
 # 3D printing
 You will have a more uniform light, if you put the case inside another semi-transparent case.    
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
-Downloads Models here : https://github.com/madnerdorg/leds/tree/master/stl    
+![Wiring_leds](doc/leds2.jpg)
+![Wiring_leds](doc/leds5.jpg)    
+[Models](https://github.com/madnerdorg/leds/tree/master/stl)
 
-# Commands available
+# Commands
 Here are the commands available, you can send it using Arduino at baudrate 115200.
 
 ## Global commands
@@ -156,7 +172,7 @@ animation;3;0;0
 ## FastLed
 * Main author: Daniel Garcia (fastled)
 * Licence: MIT
-* Link : https://github.com/FastLED/FastLED
+* Link : [https://github.com/FastLED/FastLED]()
 
 ## Cases (stl)
 * Author: Olivier Sarrailh

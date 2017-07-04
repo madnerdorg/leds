@@ -1,59 +1,61 @@
-[English version](https://github.com/madnerdorg/leds/)
+[English version](https://madnerdorg.github.io/leds/)
 
-![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds2.gif)   
-**leds** est un appareil USB à base d'arduino nano pour contrôler 1 ou plusieurs LEDS.
-Vous pouvez animer chaque leds indépendanments et changer les couleurs en utilisant les couleurs HSV
+[![Libre Connect](https://madnerdorg.github.io/libreconnect/doc/img/libreconnect_devices_banner.png)](https://madnerdorg.github.io/libreconnect/doc/fr/devices)     
+[Télécharger Leds](https://github.com/madnerdorg/leds/archive/master.zip) /  [LibreConnect](https://madnerdorg.github.io/libreconnect/) /[Source](https://github.com/madnerdorg/leds)
 
-<!-- TOC -->
-- [Télécharger](#télécharger)
+![Photo LEDs](doc/leds2.gif)   
+**leds** permet de contrôler 1 ou plusieurs LEDS (ws2812b).    
+Vous pouvez changer les couleurs en utilisant les couleurs HSV ainsi que  animer chaque leds indépendamment.    
+Une fois que vous êtes satisfait de l'apparence de vos leds, sauvez le résultat dans la mémoire (eeprom) de l'arduino.    
+
 - [Applications](#applications)
 - [Comment construire leds](#comment-construire-leds)
-    - [Arduino](#arduino)
-    - [Composants](#composants)
-        - [led2](#led2)
-        - [led5](#led5)
-        - [Strip WS2812B](#strip-ws2812b)
-    - [Branchement](#branchement)
-        - [Attention!](#attention)
-- [Impression 3D](#impression-3d)
 - [Commandes disponibles](#commandes-disponibles)
-    - [Commandes globales](#commandes-globales)
-        - [Example pour load](#example-pour-load)
-    - [Commandes pour une led](#commandes-pour-une-led)
-- [Couleur (hue)](#couleur-hue)
-    - [led0 en red](#led0-en-red)
-- [Animation](#animation)
-    - [led 0 pulsation](#led-0-pulsation)
-    - [led 1 clignotement à 25ms](#led-1-clignotement-à-25ms)
-    - [led 2 mode arc en ciel (change hue)](#led-2-mode-arc-en-ciel-change-hue)
-- [](#)
-- [Licences](#licences)
-    - [leds.ino](#ledsino)
-    - [FastLed](#fastled)
-    - [Boitier (stl)](#boitier-stl)
-<!-- /TOC -->
-
-# Télécharger
-
-* [Télécharger l'objet](https://github.com/madnerdorg/leds/archive/master.zip)
-* [Télécharger LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
-* [Source](https://github.com/madnerdorg/libreconnect/releases)
 
 # Applications
-Requis [LibreConnect](https://github.com/madnerdorg/libreconnect/releases)
-
-* [apps/html](https://github.com/madnerdorg/leds/tree/master/apps)  
+## [apps/html](http://madnerd.org/interface/leds2_fr.html)
 Paramètrer vos leds à l'aide d'une page web, une fois que vous satisfait de la manière dont vos leds brillent, vous
 pouvez sauvegarder l'état et l'arduino se souviendra de l'état actuel.
-Vous pouvez ainsi l'utiliser n'importe où!
-![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds_html.jpg)   
+Vous pouvez ainsi l'utiliser n'importe où!    
+![Photo LEDs](doc/leds_html.jpg)   
 
-* [apps/tasker](https://github.com/madnerdorg/leds/tree/master/apps)    
-Soyez notifié quand quelqu'un vous appelle, grâce à tasker à l'aide de scripts tout simple en javascript.
-Grâce à la puissance de tasker, vous pouvez synchroniser les leds lorsqu'il se passe des choses sur votre téléphone!
+## [apps/tasker](https://github.com/madnerdorg/leds/tree/master/apps/tasker) 
+Soyez notifier quand quelqu'un vous appelle, grâce à tasker à l'aide de scripts tout simple en javascript.
+Grâce à la puissance de [tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm), vous pouvez allumer vos leds lorsqu'il se passe des choses sur votre téléphone!
 
-* apps/thunderbird [TODO]    
-Soyez notifié quand quelqu'un vous envoie un email, à l'aide des **filtres** et du plugin **mail alerts**.
+Vous pouvez aussi utiliser [Power Toggles](https://play.google.com/store/apps/details?id=com.painless.pc) pour créer vos propres boutons dans la barre de notifications.
+
+Voici un script que j'utilise pour éteindre mes leds
+* Créer une tâche
+* Importer le code à l'aide de Code/Javascript
+* Retirer auto exit (sortie auto)
+* Mettre le délai à 1 seconde.
+
+```
+ip="192.168.0.140";
+port=42001;
+
+
+bluepulse = "load;255;160;255;143;2;0;0;160;255;116;2;0;0;";
+police = "load;255;0;255;255;4;0;1;160;255;255;4;1;70;";
+fire = "load;123;32;255;41;2;0;0;32;255;129;2;0;0;";
+off = "/off";
+
+leds = new WebSocket("ws://"+ip+":"+port);
+leds.onopen = send;
+
+function send(){
+	leds.send(off);
+}
+```
+
+## apps/thunderbird   
+Soyez notifier quand quelqu'un vous envoie un email, à l'aide des **filtres** et du plugin [mail alerts](https://addons.mozilla.org/fr/thunderbird/addon/mailbox-alert/).
+
+Vous pouvez utiliser [ws-send](https://github.com/madnerdorg/libreconnect/blob/master/ws-send.py) pour contrôler vos leds
+```
+"c:\libreconnect\ws-send.exe" -u "ws://localhost:42001" -m "/on"
+```
 
 # Comment construire leds
 
@@ -91,7 +93,7 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 Afin d'avoir une lumière uniforme, vous pouvez utiliser un boitier semi-transparent en plus du boitier.
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
 ![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
-Télécharger les modèles ici: https://github.com/madnerdorg/leds/tree/master/stl   
+[Modèles](https://github.com/madnerdorg/leds/tree/master/stl)
 
 # Commandes disponibles
 Voici les commandes disponibles, vous pouvez les envoyer en utilisant le logiciel Arduino (baudrate 115200)
@@ -116,7 +118,7 @@ Voici les commandes disponibles, vous pouvez les envoyer en utilisant le logicie
 color;led;Hue;Saturation;Value ---> Change la couleur pour une led
 animation;led;type;arg1;arg2 ---> Change l'animation pour une led
 ```
-# Couleur (hue)
+## Couleur (hue)
 Les couleurs exprimés en HSV ont trois paramètres: hue(couleur), saturation(plus ou moins blanc), value(luminosité)
 La valeur la plus important est le **hue** car elle définit la couleur, à l'exception du blanc (qui utilise la saturation à 0), vous pouvez
 pratiquement mettre uniquement 255;255 pour value et saturation.
@@ -129,7 +131,7 @@ pratiquement mettre uniquement 255;255 pour value et saturation.
 * violet = 192
 * rose = 224       
 
-## led0 en red 
+### led0 en red 
 ```
 color;0;0;255;255
 ```
