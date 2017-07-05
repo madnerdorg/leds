@@ -1,9 +1,16 @@
-[English version](https://madnerdorg.github.io/leds/)
+[English](https://madnerdorg.github.io/leds/)
 
 [![Libre Connect](https://madnerdorg.github.io/libreconnect/doc/img/libreconnect_devices_banner.png)](https://madnerdorg.github.io/libreconnect/doc/fr/devices)     
 [Télécharger Leds](https://github.com/madnerdorg/leds/archive/master.zip) /  [LibreConnect](https://madnerdorg.github.io/libreconnect/) /[Source](https://github.com/madnerdorg/leds)
 
-![Photo LEDs](doc/leds2.jpg)
+- [C'est quoi leds ?](#cest-quoi-leds-)
+- [Applications](#applications)
+- [Comment construire leds](#comment-construire-leds)
+- [Commandes](#commandes)
+
+# C'est quoi leds ?
+
+![Photo LEDs](doc/leds2.jpg)     
 **leds** permet de contrôler 1 ou plusieurs LEDS (ws2812b).    
 Vous pouvez changer les couleurs en utilisant les couleurs HSV ainsi que  animer chaque leds indépendamment.    
 Une fois que vous êtes satisfait de l'apparence de vos leds, sauvez le résultat dans la mémoire (eeprom) de l'arduino.    
@@ -89,13 +96,13 @@ https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections
 * +5V --> 5V
 * GND --> GND
 
-# Impression 3D
+## Impression 3D
 Afin d'avoir une lumière uniforme, vous pouvez utiliser un boitier semi-transparent en plus du boitier.
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds2.jpg)
-![Wiring_leds](https://github.com/madnerdorg/leds/raw/master/doc/leds5.jpg)    
+![Wiring_leds](doc/leds2.jpg)
+![Wiring_leds](doc/leds5.jpg)    
 [Modèles](https://github.com/madnerdorg/leds/tree/master/stl)
 
-# Commandes disponibles
+# Commandes
 Voici les commandes disponibles, vous pouvez les envoyer en utilisant le logiciel Arduino (baudrate 115200)
 
 ## Commandes globales
@@ -135,7 +142,7 @@ pratiquement mettre uniquement 255;255 pour value et saturation.
 ```
 color;0;0;255;255
 ```
-# Animation
+## Animation
 
 ![Photo LEDs](https://github.com/madnerdorg/leds/raw/master/doc/leds5.gif)  
 *  0: Pas d'animation
@@ -144,20 +151,18 @@ color;0;0;255;255
 *  3: Mode arc-en-ciel
 *  4: Clignotement alterné (param1:0:maitre/1:esclave, param2:position led esclave/vitesse en ms)
 
-## led 0 pulsation
+### led 0 pulsation
 ```
 animation;2;0;0
 ```
-## led 1 clignotement à 25ms
+### led 1 clignotement à 25ms
 ```
 animation;1;25;0
 ```
-## led 2 mode arc en ciel (change hue)
+### led 2 mode arc en ciel (change hue)
 ```
 animation;3;0;0
 ```
-# 
-
 # Licences
 
 ## leds.ino

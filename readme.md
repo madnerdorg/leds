@@ -3,6 +3,13 @@
 [![Libre Connect](https://madnerdorg.github.io/libreconnect/doc/img/libreconnect_devices_banner.png)](https://madnerdorg.github.io/libreconnect/doc/en/devices)   
 [Download Leds](https://github.com/madnerdorg/leds/archive/master.zip) /  [LibreConnect](https://madnerdorg.github.io/libreconnect/) /[Source](https://github.com/madnerdorg/leds)
 
+- [What is Leds](#what-is-leds)
+- [Applications](#applications)
+- [How to build leds](#how-to-build-leds)
+- [Commands](#commands)
+
+# What is Leds
+
 ![Photo LEDs](doc/leds2.jpg)   
 **leds** is a device to control 1 or more leds (ws2812b) using USB.   
 You can animate each leds independently, and change the color using **hsv colors**.  
@@ -94,7 +101,7 @@ Arduino can provide up to **500ma** (on 5v/Gnd pin)
 Source:
 [https://learn.adafruit.com/adafruit-neopixel-uberguide/basic-connections]()
 
-# 3D printing
+## 3D printing
 You will have a more uniform light, if you put the case inside another semi-transparent case.    
 ![Wiring_leds](doc/leds2.jpg)
 ![Wiring_leds](doc/leds5.jpg)    
@@ -161,8 +168,6 @@ animation;1;25;0
 ```
 animation;3;0;0
 ```
-# 
-
 # Licences
 
 ## leds.ino
