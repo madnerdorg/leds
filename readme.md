@@ -69,6 +69,8 @@ You can use [ws-send](https://github.com/madnerdorg/libreconnect/blob/master/ws-
 
 # How to build leds
 
+[![leds](doc/leds_video.jpg)](https://www.youtube.com/watch?v=UThz91hRcYQ)
+
 ## Arduino
 First we need to copy the code on an arduino, 
 * Copy **arduino/leds** and **arduino/library** into your arduino sketchbook

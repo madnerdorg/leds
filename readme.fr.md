@@ -5,7 +5,7 @@
 
 - [C'est quoi leds ?](#cest-quoi-leds-)
 - [Applications](#applications)
-- [Comment construire leds](#comment-construire-leds)
+- [Comment fabriquer leds](#comment-fabriquer-leds)
 - [Commandes](#commandes)
 
 # C'est quoi leds ?
@@ -64,8 +64,8 @@ Vous pouvez utiliser [ws-send](https://github.com/madnerdorg/libreconnect/blob/m
 "c:\libreconnect\ws-send.exe" -u "ws://localhost:42001" -m "/on"
 ```
 
-# Comment construire leds
-
+# Comment fabriquer leds
+[![leds](doc/leds_video.jpg)](https://www.youtube.com/watch?v=sHwIgMWFc-8)
 ## Arduino
 Tout d'abord nous devons copier le code sur un arduino,
 * Copier **arduino/leds** et **arduino/library** dans votre carnet de croquis arduino
