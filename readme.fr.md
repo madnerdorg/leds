@@ -150,6 +150,7 @@ color;0;0;255;255
 *  2: Pulsation
 *  3: Mode arc-en-ciel
 *  4: Clignotement alterné (param1:0:maitre/1:esclave, param2:position led esclave/vitesse en ms)
+*  5: Changement Progressif (Chaque changement de couleur devient progressif au lieu d'être instantanée)
 
 ### led 0 pulsation
 ```

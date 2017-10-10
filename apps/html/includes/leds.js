@@ -17,6 +17,7 @@ blink_anim = 1;
 pulse_anim = 2;
 rainbow_anim = 3;
 alternate_blink_anim = 4;
+progressive_anim = 5;
 
 //Predefined speed (in ms)
 slower = 2000;
@@ -41,6 +42,10 @@ function rainbow(led){
 
 function alternate_blink(led1,led2,delay){
 	return "animation;"+led1+";"+alternate_blink_anim+";0;0";
+}
+
+function progressive(led){
+	return "animation;"+led+";"+progressive_anim+";0;0";
 }
 
 function stop(led){

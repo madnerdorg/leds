@@ -1,4 +1,8 @@
-// LibreLeds
+// LibreLeds v2
+
+// Change log
+// v1.0 4 Animation
+// v2.0 5 Animation (progressive mode)
 
 #include <FastLED.h>
 #include <EEPROM.h>
@@ -25,6 +29,7 @@ const int BLINK = 1;
 const int PULSE = 2;
 const int RAINBOW = 3;
 const int ALTERNATE_BLINK = 4;
+const int PROGRESSIVE = 5;
 
 const int MASTER = 0;
 const int SLAVE = 1;
@@ -37,6 +42,10 @@ int hue[NUM_LEDS];
 int sat[NUM_LEDS];
 int val[NUM_LEDS];
 int brightness;
+
+int new_hue[NUM_LEDS];
+int new_sat[NUM_LEDS];
+int new_val[NUM_LEDS];
 
 // Animation Settings
 int anim[NUM_LEDS];
@@ -86,18 +95,43 @@ String splitString(String data, char separator, int index) {
 }
 
 void change_color_all(int h, int s, int v) {
-  for (int i = 0; i < NUM_LEDS; i++) {change_color(i, h, s, v);}
+  for (int i = 0; i < NUM_LEDS; i++) {
+    change_color(i, h, s, v);
+  }
 }
 
 void change_color(int led, int h, int s, int v) {
-  leds[led] = CHSV(h, s, v);
-  hue[led] = h;
-  sat[led] = s;
-  val[led] = v;
+
+  if (anim[led] == PROGRESSIVE) {
+    //Serial.println("PROGRESSIVE MODE");
+
+    
+    new_hue[led] = h;
+    new_sat[led] = s;
+    new_val[led] = v;
+    //Serial.print(hue[led]);
+    //Serial.print(sat[led]);
+    //Serial.println(val[led]);
+    //Serial.print(new_hue[led]);
+    //Serial.print(new_sat[led]);
+    //Serial.println(new_val[led]);
+    
+  } else {
+    //Serial.println("NONPROGRESSIVE");
+    hue[led] = h;
+    sat[led] = s;
+    val[led] = v;
+    new_hue[led] = h;
+    new_sat[led] = s;
+    new_val[led] = v;
+    leds[led] = CHSV(h, s, v);
+  }
 }
 
 void change_anim_all(int animation, int parameter1, int parameter2) {
-  for (int led = 0; led < NUM_LEDS; led++) {change_anim(led, animation, parameter1 , parameter2);}
+  for (int led = 0; led < NUM_LEDS; led++) {
+    change_anim(led, animation, parameter1 , parameter2);
+  }
 }
 
 void change_anim(int led, int animation, int parameter1, int parameter2) {
@@ -116,9 +150,17 @@ void animation_loop() {
     // Pulse animation
     if (anim[led] == PULSE) {
       //Orientation (fading in/fading out)
-      if (val[led] <= 0) {status[led] = 1;}
-      if (val[led] >= 255) {status[led] = 0;}
-      if (status[led] == 0) {val[led]--;} else {val[led]++;}
+      if (val[led] <= 0) {
+        status[led] = 1;
+      }
+      if (val[led] >= 255) {
+        status[led] = 0;
+      }
+      if (status[led] == 0) {
+        val[led]--;
+      } else {
+        val[led]++;
+      }
       change_color(led, hue[led], sat[led], val[led]);
       //Serial.println(val[led]);
     }
@@ -128,15 +170,27 @@ void animation_loop() {
       //If interval is finish change state
       if (currentTime - timing[led] > params1[led]) {
         timing[led] = currentTime;
-        if (val[led] == 255) {val[led] = 0;} else {val[led] = 255;}
+        if (val[led] == 255) {
+          val[led] = 0;
+        } else {
+          val[led] = 255;
+        }
         change_color(led, hue[led], sat[led], val[led]);
       }
     }
 
     if (anim[led] == RAINBOW) {
-      if (hue[led] <= 0) {status[led] = 1;}
-      if (hue[led] >= 255) {status[led] = 0;}
-      if (status[led] == 0) {hue[led]--;} else {hue[led]++;}
+      if (hue[led] <= 0) {
+        status[led] = 1;
+      }
+      if (hue[led] >= 255) {
+        status[led] = 0;
+      }
+      if (status[led] == 0) {
+        hue[led]--;
+      } else {
+        hue[led]++;
+      }
       change_color(led, hue[led], sat[led], val[led]);
     }
 
@@ -159,13 +213,42 @@ void animation_loop() {
         change_color(led2, hue[led2], sat[led2], val[led2]);
       }
     }
+
+    if (anim[led] == PROGRESSIVE) {
+      if (hue[led] < new_hue[led]) {
+        hue[led]++; 
+        leds[led] = CHSV(hue[led], sat[led], val[led]); 
+        //Serial.println(hue[led]);
+        //Serial.println(new_hue[led]);
+      }
+      if (hue[led] > new_hue[led]) {
+        hue[led]--; 
+        leds[led] = CHSV(hue[led], sat[led], val[led]); 
+      }
+      if (sat[led] < new_sat[led]) {
+        sat[led]++;
+        leds[led] = CHSV(hue[led], sat[led], val[led]);
+      }
+      if (sat[led] > new_sat[led]) {
+        sat[led]--;
+        leds[led] = CHSV(hue[led], sat[led], val[led]);
+      }
+      if (val[led] < new_val[led]) {
+        val[led]++;
+        leds[led] = CHSV(hue[led], sat[led], val[led]);
+      }
+      if (val[led] > new_val[led]) {
+        val[led]--;
+        leds[led] = CHSV(hue[led], sat[led], val[led]);
+      }
+    }
   }
 }
 
 void init_leds() {
   int status_eeprom;
-  EEPROM.get(0,status_eeprom);
-  if(status_eeprom != -1){
+  EEPROM.get(0, status_eeprom);
+  if (status_eeprom != -1) {
     read_eeprom();
   } else {
     change_color_all(0, 0, 0);
@@ -175,179 +258,186 @@ void init_leds() {
   }
 }
 
-void read_eeprom(){
+void read_eeprom() {
   int address = 0;
-  EEPROM.get(0,brightness);
+  EEPROM.get(0, brightness);
   LEDS.setBrightness(brightness);
   address = 2;
   for (int led = 0; led < NUM_LEDS; led++) {
-    EEPROM.get(address,hue[led]);
+    EEPROM.get(address, hue[led]);
     address = address + 2;
-    EEPROM.get(address,sat[led]);
+    EEPROM.get(address, sat[led]);
     address = address + 2;
-    EEPROM.get(address,val[led]);
+    EEPROM.get(address, val[led]);
     address = address + 2;
-    EEPROM.get(address,anim[led]);
+    EEPROM.get(address, anim[led]);
     address = address + 2;
-    EEPROM.get(address,params1[led]);
+    EEPROM.get(address, params1[led]);
     address = address + 2;
-    EEPROM.get(address,params2[led]);
+    EEPROM.get(address, params2[led]);
     address = address + 2;
     change_color(led, hue[led], sat[led], val[led]);
     change_anim(led, anim[led], params1[led], params2[led]);
   }
 }
 
-void save_eeprom(){
+void save_eeprom() {
   int address = 0;
-  EEPROM.put(0,brightness);
+  EEPROM.put(0, brightness);
   address = 2;
   for (int led = 0; led < NUM_LEDS; led++) {
-    EEPROM.put(address,hue[led]);
+    EEPROM.put(address, hue[led]);
     address = address + 2;
-    EEPROM.put(address,sat[led]);
+    EEPROM.put(address, sat[led]);
     address = address + 2;
-    EEPROM.put(address,val[led]);
+    EEPROM.put(address, val[led]);
     address = address + 2;
-    EEPROM.put(address,anim[led]);
+    EEPROM.put(address, anim[led]);
     address = address + 2;
-    EEPROM.put(address,params1[led]);
+    EEPROM.put(address, params1[led]);
     address = address + 2;
-    EEPROM.put(address,params2[led]);
+    EEPROM.put(address, params2[led]);
     address = address + 2;
   }
   //Serial.println("Saved eeprom");
 }
 
 void serialManager() {
-  while (Serial.available()) {delay(5);if (Serial.available() > 0) {char c = Serial.read();readString += c;}}
+  while (Serial.available()) {
+    delay(5);
+    if (Serial.available() > 0) {
+      char c = Serial.read();
+      readString += c;
+    }
+  }
 
   if (readString.length() > 0) {
-    if (readString[0] == '/'){
-        if (readString == "/info") {
-          Serial.println(usb_name);
-        } 
+    if (readString[0] == '/') {
+      if (readString == "/info") {
+        Serial.println(usb_name);
+      }
       //Get status
-        if (readString == "/status") {
-          Serial.print(brightness);
+      if (readString == "/status") {
+        Serial.print(brightness);
+        Serial.print(";");
+        for (int led = 0; led < NUM_LEDS; led++) {
+          Serial.print(hue[led]);
           Serial.print(";");
-          for (int led = 0; led < NUM_LEDS; led++) {
-           Serial.print(hue[led]);
-           Serial.print(";");
-           Serial.print(sat[led]);
-           Serial.print(";");
-           Serial.print(val[led]);
-           Serial.print(";");
-           Serial.print(anim[led]);
-           Serial.print(";");
-           Serial.print(params1[led]);
-           Serial.print(";");
-           Serial.print(params2[led]);
-           Serial.print(";");
-          }
-          Serial.println();
+          Serial.print(sat[led]);
+          Serial.print(";");
+          Serial.print(val[led]);
+          Serial.print(";");
+          Serial.print(anim[led]);
+          Serial.print(";");
+          Serial.print(params1[led]);
+          Serial.print(";");
+          Serial.print(params2[led]);
+          Serial.print(";");
         }
+        Serial.println();
+      }
 
-     
-        if (readString == "/save") {
-          save_eeprom();
-          Serial.println(readString);
-        }
-        
-        //Turn off all leds
-        if (readString == "/off") {
-          change_color_all(0, 0, 0);
-          change_anim_all(0, 0, 0);
-          Serial.println(readString);
-        }
 
-       if (readString == "/on") {
-          change_color_all(0,0, 255);
-          change_anim_all(0, 0, 255);
-          Serial.println(readString);
-        }
+      if (readString == "/save") {
+        save_eeprom();
+        Serial.println(readString);
+      }
 
-          if (readString == "/sync"){
-           for (int led = 0; led < NUM_LEDS; led++) {
-              val[led] = 255;
-           }
-           Serial.println(readString);
-        }
+      //Turn off all leds
+      if (readString == "/off") {
+        change_color_all(0, 0, 0);
+        change_anim_all(0, 0, 0);
+        Serial.println(readString);
+      }
 
-        if (readString == "/reset"){
-          read_eeprom();
-        }
+      if (readString == "/on") {
+        change_color_all(0, 0, 255);
+        change_anim_all(0, 0, 255);
+        Serial.println(readString);
+      }
 
-        if (readString == "/clear"){
-          change_color_all(0, 0, 0);
-          change_anim_all(0, 0, 0);
-          LEDS.setBrightness(255);
-          save_eeprom();
-          Serial.println(readString);
+      if (readString == "/sync") {
+        for (int led = 0; led < NUM_LEDS; led++) {
+          val[led] = 255;
         }
+        Serial.println(readString);
+      }
+
+      if (readString == "/reset") {
+        read_eeprom();
+      }
+
+      if (readString == "/clear") {
+        change_color_all(0, 0, 0);
+        change_anim_all(0, 0, 0);
+        LEDS.setBrightness(255);
+        save_eeprom();
+        Serial.println(readString);
+      }
     } else {
-          String command = splitString(readString, ';', 0);
+      String command = splitString(readString, ';', 0);
 
-          //Change brightness
-          if (command == "brightness") {
-            brightness = splitString(readString, ';', 1).toInt();
-            LEDS.setBrightness(brightness);
-            Serial.println(readString);
-          }
+      //Change brightness
+      if (command == "brightness") {
+        brightness = splitString(readString, ';', 1).toInt();
+        LEDS.setBrightness(brightness);
+        Serial.println(readString);
+      }
 
-          //Change color
-          if (command == "color") {
-            int led = splitString(readString, ';', 1).toInt();
-            int h = splitString(readString, ';', 2).toInt();
-            int s = splitString(readString, ';', 3).toInt();
-            int v = splitString(readString, ';', 4).toInt();
-            change_color(led, h, s, v);
-            //If we turn off led we assume we want to stop the animation too.
-            if ( (h==0) && (s==0) && (v==0) ) {
-              change_anim(led,0,0,0);
-            }
-            Serial.println(readString);
-          }
-          
-          //Change animation
-          if (command == "animation") {
-            int led = splitString(readString, ';', 1).toInt();
-            int animation = splitString(readString, ';', 2).toInt();
-            int parameter1 = splitString(readString, ';', 3).toInt();
-            int parameter2 = splitString(readString, ';', 4).toInt();
-            change_anim(led, animation, parameter1, parameter2);
-            //Start Rainbow animation with red 
-            if(animation == 3){
-              change_color(led,0,255,255);
-            }
-            Serial.println(readString);
-          }
-
-          //Load previous state
-          if (command == "load"){
-             int cursor = 1;
-             brightness = splitString(readString, ';', cursor++).toInt();
-            
-             for (int led = 0; led < NUM_LEDS; led++) {
-                  int h = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  int s = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  int v = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  int animation = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  int parameter1 = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  int parameter2 = splitString(readString, ';', cursor).toInt();
-                  cursor++;
-                  change_color(led,h,s,v);
-                  change_anim(led, animation, parameter1, parameter2);
-             }
-             Serial.println(readString);
-          }
-          
+      //Change color
+      if (command == "color") {
+        int led = splitString(readString, ';', 1).toInt();
+        int h = splitString(readString, ';', 2).toInt();
+        int s = splitString(readString, ';', 3).toInt();
+        int v = splitString(readString, ';', 4).toInt();
+        change_color(led, h, s, v);
+        //If we turn off led we assume we want to stop the animation too.
+        if ( (h == 0) && (s == 0) && (v == 0) ) {
+          change_anim(led, 0, 0, 0);
         }
+        Serial.println(readString);
+      }
+
+
+      //Change animation
+      if (command == "animation") {
+        int led = splitString(readString, ';', 1).toInt();
+        int animation = splitString(readString, ';', 2).toInt();
+        int parameter1 = splitString(readString, ';', 3).toInt();
+        int parameter2 = splitString(readString, ';', 4).toInt();
+        change_anim(led, animation, parameter1, parameter2);
+        //Start Rainbow animation with red
+        if (animation == 3) {
+          change_color(led, 0, 255, 255);
+        }
+        Serial.println(readString);
+      }
+
+      //Load previous state
+      if (command == "load") {
+        int cursor = 1;
+        brightness = splitString(readString, ';', cursor++).toInt();
+
+        for (int led = 0; led < NUM_LEDS; led++) {
+          int h = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          int s = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          int v = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          int animation = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          int parameter1 = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          int parameter2 = splitString(readString, ';', cursor).toInt();
+          cursor++;
+          change_color(led, h, s, v);
+          change_anim(led, animation, parameter1, parameter2);
+        }
+        Serial.println(readString);
+      }
+
+    }
     readString = "";
   }
 }

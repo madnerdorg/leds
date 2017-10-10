@@ -28,9 +28,10 @@ To use pug on windows you will need
 * Install nodejs
 https://nodejs.org/en/download/
 
-* Install pug/pugcli
-npm install -g pug
-npm install -g pugcli
+* Install pug/pugcli   
+npm install --global --production windows-build-tools   
+npm install -g pug    
+npm install -g pug-cli    
 
 Go to apps\html and type
 pug -P -w templates -o ./

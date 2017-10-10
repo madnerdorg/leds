@@ -157,6 +157,7 @@ color;0;0;255;255
 *  2: Pulsing
 *  3: Rainbow mode
 *  4: Alternative Blink (param1:0:master/1:slave, param2:second led/speed in ms)
+*  5: Progressive Change (Change color progressively)
 
 ## led 0 pulsing
 ```

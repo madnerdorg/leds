@@ -1,7 +1,7 @@
 
 <!-- Translation--><!DOCTYPE html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Leds</title>
   <style>
 		.red{background-color:#f67e7e;}
@@ -92,6 +92,7 @@
     <button onclick="leds.send(blink(0,normal))">Blink</button>
     <button onclick="leds.send(pulse(0))">Pulse</button>
     <button onclick="leds.send(rainbow(0))">Rainbow</button>
+    <button onclick="leds.send(progressive(0))">Progressive</button>
     <h1>LEDS 1</h1>
     <button class="black" onclick="leds.send(off(1))">OFF</button>
     <button class="white" onclick="leds.send(on(1))">ON</button>
@@ -107,6 +108,7 @@
     <button onclick="leds.send(blink(1,normal))">Blink</button>
     <button onclick="leds.send(pulse(1))">Pulse</button>
     <button onclick="leds.send(rainbow(1))">Rainbow</button>
+    <button onclick="leds.send(progressive(1))">Progressive</button>
     <h1>Settings</h1>
     <button class="black" onclick="leds.send(&quot;/off&quot;)">OFF</button>
     <button class="white" onclick="leds.send(&quot;/on&quot;)">ON</button>
@@ -147,6 +149,7 @@ blink_anim = 1;
 pulse_anim = 2;
 rainbow_anim = 3;
 alternate_blink_anim = 4;
+progressive_anim = 5;
 
 //Predefined speed (in ms)
 slower = 2000;
@@ -171,6 +174,10 @@ function rainbow(led){
 
 function alternate_blink(led1,led2,delay){
 	return "animation;"+led1+";"+alternate_blink_anim+";0;0";
+}
+
+function progressive(led){
+	return "animation;"+led+";"+progressive_anim+";0;0";
 }
 
 function stop(led){

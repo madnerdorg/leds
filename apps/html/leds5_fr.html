@@ -1,7 +1,7 @@
 
 <!-- Translation--><!DOCTYPE html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Leds</title>
   <style>
 		.red{background-color:#f67e7e;}
@@ -84,7 +84,7 @@
     <button class="orange" onclick="leds.send(color(0,orange))">Orange</button>
     <button class="yellow" onclick="leds.send(color(0,yellow))">Jaune</button>
     <button class="green" onclick="leds.send(color(0,green))">Vert</button>
-    <button class="aqua" onclick="leds.send(color(0,aqua))">Aqua</button>
+    <button class="aqua" onclick="leds.send(color(0,aqua))">Cyan</button>
     <button class="blue" onclick="leds.send(color(0,blue))">Bleu</button>
     <button class="purple" onclick="leds.send(color(0,purple))">Violet</button>
     <button class="pink" onclick="leds.send(color(0,pink))">Rose</button>
@@ -92,6 +92,7 @@
     <button onclick="leds.send(blink(0,normal))">Clignoter</button>
     <button onclick="leds.send(pulse(0))">Pulsation</button>
     <button onclick="leds.send(rainbow(0))">Arc-en-ciel</button>
+    <button onclick="leds.send(progressive(0))">Progressif</button>
     <h1>LEDS 1</h1>
     <button class="black" onclick="leds.send(off(1))">OFF</button>
     <button class="white" onclick="leds.send(on(1))">ON</button>
@@ -99,7 +100,7 @@
     <button class="orange" onclick="leds.send(color(1,orange))">Orange</button>
     <button class="yellow" onclick="leds.send(color(1,yellow))">Jaune</button>
     <button class="green" onclick="leds.send(color(1,green))">Vert</button>
-    <button class="aqua" onclick="leds.send(color(1,aqua))">Aqua</button>
+    <button class="aqua" onclick="leds.send(color(1,aqua))">Cyan</button>
     <button class="blue" onclick="leds.send(color(1,blue))">Bleu</button>
     <button class="purple" onclick="leds.send(color(1,purple))">Violet</button>
     <button class="pink" onclick="leds.send(color(1,pink))">Rose</button>
@@ -107,6 +108,7 @@
     <button onclick="leds.send(blink(1,normal))">Clignoter</button>
     <button onclick="leds.send(pulse(1))">Pulsation</button>
     <button onclick="leds.send(rainbow(1))">Arc-en-ciel</button>
+    <button onclick="leds.send(progressive(1))">Progressif</button>
     <h1>LEDS 2</h1>
     <button class="black" onclick="leds.send(off(2))">OFF</button>
     <button class="white" onclick="leds.send(on(2))">ON</button>
@@ -114,7 +116,7 @@
     <button class="orange" onclick="leds.send(color(2,orange))">Orange</button>
     <button class="yellow" onclick="leds.send(color(2,yellow))">Jaune</button>
     <button class="green" onclick="leds.send(color(2,green))">Vert</button>
-    <button class="aqua" onclick="leds.send(color(2,aqua))">Aqua</button>
+    <button class="aqua" onclick="leds.send(color(2,aqua))">Cyan</button>
     <button class="blue" onclick="leds.send(color(2,blue))">Bleu</button>
     <button class="purple" onclick="leds.send(color(2,purple))">Violet</button>
     <button class="pink" onclick="leds.send(color(2,pink))">Rose</button>
@@ -122,6 +124,7 @@
     <button onclick="leds.send(blink(2,normal))">Clignoter</button>
     <button onclick="leds.send(pulse(2))">Pulsation</button>
     <button onclick="leds.send(rainbow(2))">Arc-en-ciel</button>
+    <button onclick="leds.send(progressive(2))">Progressif</button>
     <h1>LEDS 3</h1>
     <button class="black" onclick="leds.send(off(3))">OFF</button>
     <button class="white" onclick="leds.send(on(3))">ON</button>
@@ -129,7 +132,7 @@
     <button class="orange" onclick="leds.send(color(3,orange))">Orange</button>
     <button class="yellow" onclick="leds.send(color(3,yellow))">Jaune</button>
     <button class="green" onclick="leds.send(color(3,green))">Vert</button>
-    <button class="aqua" onclick="leds.send(color(3,aqua))">Aqua</button>
+    <button class="aqua" onclick="leds.send(color(3,aqua))">Cyan</button>
     <button class="blue" onclick="leds.send(color(3,blue))">Bleu</button>
     <button class="purple" onclick="leds.send(color(3,purple))">Violet</button>
     <button class="pink" onclick="leds.send(color(3,pink))">Rose</button>
@@ -137,6 +140,7 @@
     <button onclick="leds.send(blink(3,normal))">Clignoter</button>
     <button onclick="leds.send(pulse(3))">Pulsation</button>
     <button onclick="leds.send(rainbow(3))">Arc-en-ciel</button>
+    <button onclick="leds.send(progressive(3))">Progressif</button>
     <h1>LEDS 4</h1>
     <button class="black" onclick="leds.send(off(4))">OFF</button>
     <button class="white" onclick="leds.send(on(4))">ON</button>
@@ -144,7 +148,7 @@
     <button class="orange" onclick="leds.send(color(4,orange))">Orange</button>
     <button class="yellow" onclick="leds.send(color(4,yellow))">Jaune</button>
     <button class="green" onclick="leds.send(color(4,green))">Vert</button>
-    <button class="aqua" onclick="leds.send(color(4,aqua))">Aqua</button>
+    <button class="aqua" onclick="leds.send(color(4,aqua))">Cyan</button>
     <button class="blue" onclick="leds.send(color(4,blue))">Bleu</button>
     <button class="purple" onclick="leds.send(color(4,purple))">Violet</button>
     <button class="pink" onclick="leds.send(color(4,pink))">Rose</button>
@@ -152,6 +156,7 @@
     <button onclick="leds.send(blink(4,normal))">Clignoter</button>
     <button onclick="leds.send(pulse(4))">Pulsation</button>
     <button onclick="leds.send(rainbow(4))">Arc-en-ciel</button>
+    <button onclick="leds.send(progressive(4))">Progressif</button>
     <h1>Settings</h1>
     <button class="black" onclick="leds.send(&quot;/off&quot;)">OFF</button>
     <button class="white" onclick="leds.send(&quot;/on&quot;)">ON</button>
@@ -192,6 +197,7 @@ blink_anim = 1;
 pulse_anim = 2;
 rainbow_anim = 3;
 alternate_blink_anim = 4;
+progressive_anim = 5;
 
 //Predefined speed (in ms)
 slower = 2000;
@@ -216,6 +222,10 @@ function rainbow(led){
 
 function alternate_blink(led1,led2,delay){
 	return "animation;"+led1+";"+alternate_blink_anim+";0;0";
+}
+
+function progressive(led){
+	return "animation;"+led+";"+progressive_anim+";0;0";
 }
 
 function stop(led){
